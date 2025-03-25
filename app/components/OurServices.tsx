@@ -55,13 +55,15 @@ const OurServices = () => {
     {
       image: "/images/DigitalForensic.png",
       title: "Digital Forensic",
-      description:"When incidents occur, our cyber forensics experts step in to uncover the truth. We meticulously investigate and analyze digital evidence, helping you understand the who, what, and why behind any cyber incident.",
+      description:
+        "When incidents occur, our cyber forensics experts step in to uncover the truth. We meticulously investigate and analyze digital evidence, helping you understand the who, what, and why behind any cyber incident.",
       link: "/services/DigitalForensic",
     },
     {
       image: "/images/CyberSecurity.png",
       title: "Cyber Security",
-      description:"Trcelabs offers top-tier cybersecurity training and awareness programs designed to equip individuals and organizations with the knowledge to protect against cyber threats. Our expert-led sessions cover the latest security risks and best practices, ensuring proactive defense strategies. Stay ahead of cybercriminals with our tailored training solutions that empower you to safeguard data, privacy, and digital assets.",
+      description:
+        "Trcelabs offers top-tier cybersecurity training and awareness programs designed to equip individuals and organizations with the knowledge to protect against cyber threats. Our expert-led sessions cover the latest security risks and best practices, ensuring proactive defense strategies. Stay ahead of cybercriminals with our tailored training solutions that empower you to safeguard data, privacy, and digital assets.",
       link: "/services/CyberSecurity",
     },
     {
@@ -95,15 +97,16 @@ const OurServices = () => {
               variants={cardVariants}
               className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 flex flex-col border border-gray-700"
             >
-              <div className="relative w-full h-64 overflow-hidden">
+              <div className="relative w-3/4 h-52 mx-auto overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover object-center transition-transform duration-300 hover:scale-110"
+                  className="object-cover object-center transition-transform duration-300 hover:scale-105"
                 />
               </div>
+
               <div className="p-6 flex-grow flex flex-col">
                 <h2 className="text-xl font-bold text-green-400 mb-3">
                   {service.title}
