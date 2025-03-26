@@ -59,7 +59,7 @@ const OurServices = () => {
       link: "/services/CyberSecurity",
     },
     {
-      image: "/images/DigitalForensic.png",
+      image: "/images/Forensic.png",
       title: "Digital Forensic",
       description:
         "When incidents occur, our cyber forensics experts step in to uncover the truth. We meticulously investigate and analyze digital evidence, helping you understand the who, what, and why behind any cyber incident.",
@@ -96,14 +96,13 @@ const OurServices = () => {
               variants={cardVariants}
               className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 flex flex-col border border-gray-700"
             >
-              <div className="relative w-full h-94 overflow-hidden">
+              <div className="relative w-full h-70 overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
-                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover object-center transition-transform duration-300 hover:scale-105"
+                  className="object-contain object-center"
                 />
               </div>
 
