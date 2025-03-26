@@ -4,17 +4,18 @@ import WhyChoose from "./components/WhyChoose";
 import ContactForm from "./components/ContactForm";
 import LandingPage from "./components/LandingPage";
 import ScrollToTop from "./components/ScrollToTop";
+import LoadingAnimation from "./components/LoadingAnimation";
 
 export default function Home() {
   return (
-   <div>
-    <LandingPage/>
-    <OurServices/>
-    <WhyChoose/>
-    <ContactForm/>
-    <ScrollToTop/>
-    
+    <div>
+      <LoadingAnimation />
 
-   </div>
+      <LandingPage />
+      <OurServices />
+      <WhyChoose />
+      <ContactForm />
+      <ScrollToTop />
+    </div>
   );
 }
