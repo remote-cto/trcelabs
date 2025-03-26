@@ -69,7 +69,7 @@ const OurServices = () => {
     {
       image: "/images/Training.png",
       title: "Training and Awareness",
-      description:"Trcelabs offers top-tier cybersecurity training and awareness programs designed to equip individuals and organizations with the knowledge to protect against cyber threats. Our expert-led sessions cover the latest security risks and best practices, ensuring proactive defense strategies. Stay ahead of cybercriminals with our tailored training solutions that empower you to safeguard data, privacy, and digital assets.",
+      description:"TRCELABS offers top-tier cybersecurity training and awareness programs designed to equip individuals and organizations with the knowledge to protect against cyber threats. Our expert-led sessions cover the latest security risks and best practices, ensuring proactive defense strategies. Stay ahead of cybercriminals with our tailored training solutions that empower you to safeguard data, privacy, and digital assets.",
       link: "/services/Training",
     },
   ];
