@@ -62,15 +62,13 @@ const OurServices = () => {
     {
       image: "/images/CyberSecurity.png",
       title: "Cyber Security",
-      description:
-        "Trcelabs offers top-tier cybersecurity training and awareness programs designed to equip individuals and organizations with the knowledge to protect against cyber threats. Our expert-led sessions cover the latest security risks and best practices, ensuring proactive defense strategies. Stay ahead of cybercriminals with our tailored training solutions that empower you to safeguard data, privacy, and digital assets.",
+      description:"In a world rife with cyber threats, we stand as your vigilant guardians. Our team of experts is dedicated to fortifying your digital defenses, ensuring that your data remains secure against evolving threats.",
       link: "/services/CyberSecurity",
     },
     {
       image: "/images/Training.png",
       title: "Training and Awareness",
-      description:
-        "Our Managed IT Services are designed to provide comprehensive, proactive support for all your IT needs, allowing your business to thrive without the burden of managing complex technology in-house.",
+      description:"Trcelabs offers top-tier cybersecurity training and awareness programs designed to equip individuals and organizations with the knowledge to protect against cyber threats. Our expert-led sessions cover the latest security risks and best practices, ensuring proactive defense strategies. Stay ahead of cybercriminals with our tailored training solutions that empower you to safeguard data, privacy, and digital assets.",
       link: "/services/Training",
     },
   ];
