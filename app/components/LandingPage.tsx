@@ -64,7 +64,7 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
             <p className="mb-4">
               In an era where cyber threats are evolving at an alarming pace,{" "}
               <span className="text-green-400 hover:underline ml-1">
-                Tracelabs
+              TRCELABS
               </span>{" "}
               stands as your trusted partner in cyber defense, digital
               forensics, and security education. We help businesses safeguard

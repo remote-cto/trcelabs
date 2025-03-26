@@ -53,18 +53,19 @@ const OurServices = () => {
 
   const services = [
     {
+      image: "/images/CyberSecurity.png",
+      title: "Cyber Security",
+      description:"In a world rife with cyber threats, we stand as your vigilant guardians. Our team of experts is dedicated to fortifying your digital defenses, ensuring that your data remains secure against evolving threats.",
+      link: "/services/CyberSecurity",
+    },
+    {
       image: "/images/DigitalForensic.png",
       title: "Digital Forensic",
       description:
         "When incidents occur, our cyber forensics experts step in to uncover the truth. We meticulously investigate and analyze digital evidence, helping you understand the who, what, and why behind any cyber incident.",
       link: "/services/DigitalForensic",
     },
-    {
-      image: "/images/CyberSecurity.png",
-      title: "Cyber Security",
-      description:"In a world rife with cyber threats, we stand as your vigilant guardians. Our team of experts is dedicated to fortifying your digital defenses, ensuring that your data remains secure against evolving threats.",
-      link: "/services/CyberSecurity",
-    },
+   
     {
       image: "/images/Training.png",
       title: "Training and Awareness",
