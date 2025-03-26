@@ -21,12 +21,12 @@ const Page = () => {
         </button>
 
         <div className="bg-gray-900 rounded-xl p-6 mb-6 shadow-2xl border border-green-900/30">
-          {/* <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4">
             <span className="text-2xl mr-3 text-green-400">✔</span>
             <h2 className="text-2xl font-bold text-green-400">
-              DFIR - Digital Forensics & Incident Response
+             IT Security Training & Skill Development
             </h2>
-          </div> */}
+          </div>
           <ul className="space-y-3 pl-6">
             {[
               "Hands-on Training for IT & Security Teams",

@@ -24,15 +24,15 @@ const Page = () => {
           <div className="flex items-center mb-4">
             <span className="text-2xl mr-3 text-green-400">✔</span>
             <h2 className="text-2xl font-bold text-green-400">
-              DFIR - Digital Forensics & Incident Response
+            SIEM (Security Information & Event Management) Services
             </h2>
           </div>
           <ul className="space-y-3 pl-6">
             {[
-              "Cybercrime Investigation & Evidence Collection",
-              "Ransomware & Malware Analysis",
-              "Data Breach Response & Recovery",
-              "Forensic Reports for Legal & Compliance Needs",
+              "24/7 Threat Monitoring & Response",
+              "Real-time Log Analysis & Correlation",
+              "Incident Detection & Forensic Investigation",
+              "Customizable SIEM Deployment & Tuning",
             ].map((item, index) => (
               <li key={index} className="flex items-center text-green-200">
                 <span className="text-green-500 mr-2">📌</span>
@@ -41,7 +41,7 @@ const Page = () => {
             ))}
           </ul>
           <p className="mt-4 italic text-green-300">
-            Get to the root of cyber incidents with forensic precision!
+          Stay ahead of threats with proactive security monitoring!
           </p>
         </div>
 
@@ -49,15 +49,15 @@ const Page = () => {
           <div className="flex items-center mb-4">
             <span className="text-2xl mr-3 text-green-400">✔</span>
             <h2 className="text-2xl font-bold text-green-400">
-              OSINT (Open-Source Intelligence)
+            VAPT (Vulnerability Assessment & Penetration Testing)
             </h2>
           </div>
           <ul className="space-y-3 pl-6">
             {[
-              "Deep & Dark Web Investigations",
-              "Social Media & Digital Footprint Analysis",
-              "Corporate & Individual Profiling for Threat Intelligence",
-              "Tracking Cybercriminal Activities",
+              "Network, Web & Mobile App Security Testing",
+              "Red Team & Blue Team Exercises",
+              " Cloud Security Assessments",
+              "Compliance & Risk Management",
             ].map((item, index) => (
               <li key={index} className="flex items-center text-green-200">
                 <span className="text-green-500 mr-2">📌</span>
@@ -66,7 +66,33 @@ const Page = () => {
             ))}
           </ul>
           <p className="mt-4 italic text-green-300">
-            Uncover hidden threats and digital traces with forensic precision!
+          Identify and fix security gaps before hackers do!
+          </p>
+        </div>
+
+
+        <div className="bg-gray-900 rounded-xl p-6 shadow-2xl border border-green-900/30 mt-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-3 text-green-400">✔</span>
+            <h2 className="text-2xl font-bold text-green-400">
+            IT Auditing & Compliance
+            </h2>
+          </div>
+          <ul className="space-y-3 pl-6">
+            {[
+              "Security Posture Assessments",
+              "ISO 27001, PCI-DSS, NIST, GDPR & SOC 2 Compliance",
+              "Risk Management & Governance Frameworks",
+              "Security Policy Review & Implementation",
+            ].map((item, index) => (
+              <li key={index} className="flex items-center text-green-200">
+                <span className="text-green-500 mr-2">📌</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 italic text-green-300">
+          Strengthen your defenses with a proactive cybersecurity approach!
           </p>
         </div>
       </div>
