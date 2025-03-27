@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         <p>We've received your message and will get back to you as soon as possible.</p>
         
         <p>Best regards,</p>
-        <p>The Nirvana.AI Team</p>
+        <p>The TRCELABS Team</p>
       `,
     };
 
