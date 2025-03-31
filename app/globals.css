@@ -37,3 +37,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/font/Switzer-VariableItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

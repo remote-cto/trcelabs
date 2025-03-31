@@ -27,7 +27,7 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
-              className="text-center text-4xl md:text-5xl font-extrabold mb-2 text-green-400 tracking-tight font-mono"
+              className="text-center text-4xl md:text-5xl font-extrabold mb-2 text-green-400 tracking-tight font-['Switzer']"
             >
               Securing Your Digital Future
             </motion.h1>
