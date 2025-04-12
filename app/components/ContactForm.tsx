@@ -142,7 +142,7 @@ const ContactForm: React.FC = () => {
 
   return (
     <section
-      className="bg-gradient-to-br from-gray-900 to-gray-800 py-16 font-mono"
+      className="bg-[#0B1828] py-16 font-mono"
       id="contact"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2">

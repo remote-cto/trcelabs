@@ -79,7 +79,7 @@ const OurServices = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="bg-gradient-to-br from-gray-900 to-gray-800 py-16 font-mono"
+      className="bg-[#0B1828] py-16 font-mono"
     >
       <div className="container mx-auto px-4">
         <motion.h1

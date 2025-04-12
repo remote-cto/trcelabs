@@ -18,7 +18,7 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden"
+      className="bg-[#0B1828] overflow-hidden"
     >
       <motion.section initial="hidden" animate="visible" className="pt-10 pb-6">
         <div className="mx-auto max-w-screen-xl px-4 lg:flex lg:items-center font-mono overflow-hidden">
@@ -44,11 +44,11 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
             className="rounded-lg overflow-hidden"
           >
             <Image
-              src="/images/LandingPageLogo.png"
+              src="/images/LandingPageLogo.jpg"
               alt="Remote CTO Security"
-              width={500}
-              height={400}
-              className="w-full h-auto object-cover"
+              width={300}
+              height={200}
+              className="w-full h-auto object-cover lg:mb-10"
             />
           </motion.div>
         </div>

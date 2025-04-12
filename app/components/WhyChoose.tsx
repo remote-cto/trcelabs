@@ -41,7 +41,7 @@ const WhyChoose = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-800 py-16 font-mono">
+    <div className="bg-[#0B1828] py-16 font-mono">
       <div className="container mx-auto px-4">
         <h1 className="text-center text-4xl md:text-5xl font-extrabold mb-12 text-green-400 tracking-tight font-mono">
           Why Choose TRCELABS?
