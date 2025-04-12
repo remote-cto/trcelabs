@@ -48,7 +48,7 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
               alt="Remote CTO Security"
               width={300}
               height={200}
-              className="w-full h-auto object-cover lg:mb-10"
+              className="w-full h-auto object-cover"
             />
           </motion.div>
         </div>
