@@ -8,14 +8,16 @@ import LoadingAnimation from "./components/LoadingAnimation";
 
 export default function Home() {
   return (
-    <div>
-      <LoadingAnimation />
-
-      <LandingPage />
-      <OurServices />
-      <WhyChoose />
-      <ContactForm />
-      <ScrollToTop />
-    </div>
+    <main>
+      {/* Main content with relative positioning to appear above the canvas */}
+      <div className="relative z-10">
+        <LoadingAnimation />
+        <LandingPage />
+        <OurServices />
+        <WhyChoose />
+        <ContactForm />
+        <ScrollToTop />
+      </div>
+    </main>
   );
 }
