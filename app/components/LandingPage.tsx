@@ -27,18 +27,22 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
 
       {/* Content overlay */}
       <div className="relative z-10">
-        <motion.section initial="hidden" animate="visible" className="pt-10 pb-6">
+        <motion.section
+          initial="hidden"
+          animate="visible"
+          className="pt-10 pb-6"
+        >
           <div className="mx-auto max-w-screen-xl px-4 lg:flex lg:items-center font-mono overflow-hidden">
-            <div className="mx-auto max-w-xl text-center">
-              <motion.h1
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-                className="text-center text-4xl md:text-5xl font-extrabold mb-2 text-white tracking-tight font-['Switzer']"
-              >
-                Securing Your Digital Future
-              </motion.h1>
-            </div>
+          <div className="mx-auto max-w-full">
+  <motion.h1
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.8 }}
+    className="text-base lg:text-5xl font-extrabold mb-2 text-white tracking-tight font-['Switzer'] whitespace-nowrap"
+  >
+    Advanced Security Solutions for Modern Times
+  </motion.h1>
+</div>
           </div>
         </motion.section>
 
@@ -60,7 +64,6 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
             </motion.div>
           </div>
 
-        
           <div className="lg:w-1/2 mt-6 lg:mt-0">
             <motion.div
               initial="hidden"
@@ -71,7 +74,7 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
               <p className="mb-4">
                 In an era where cyber threats are evolving at an alarming pace,{" "}
                 <span className="text-green-400 hover:underline ml-1">
-                TRCELABS
+                  TRCELABS
                 </span>{" "}
                 stands as your trusted partner in cyber defense, digital
                 forensics, and security education. We help businesses safeguard
@@ -79,8 +82,9 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
                 audits, digital forensics, and cybersecurity training.
               </p>
               <p>
-                Our mission is to utilize technology to solve crimes, protect your
-                digital footprint, and empower your business for the future.
+                Our mission is to utilize technology to solve crimes, protect
+                your digital footprint, and empower your business for the
+                future.
               </p>
             </motion.div>
           </div>
