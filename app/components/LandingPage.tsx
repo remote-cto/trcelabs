@@ -33,12 +33,12 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
           className="pt-10 pb-6"
         >
           <div className="mx-auto max-w-screen-xl px-4 lg:flex lg:items-center font-mono overflow-hidden">
-          <div className="mx-auto max-w-full">
+          <div className="mx-auto px-4 overflow-hidden">
   <motion.h1
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.8 }}
-    className="text-base lg:text-5xl font-extrabold mb-2 text-white tracking-tight font-['Switzer'] whitespace-nowrap"
+    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2 text-white tracking-tight font-['Switzer'] text-center"
   >
     Advanced Security Solutions for Modern Times
   </motion.h1>
