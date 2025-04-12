@@ -45,3 +45,11 @@
   font-weight: bold;
   font-style: normal;
 }
+
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Black.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
