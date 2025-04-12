@@ -94,7 +94,7 @@ const OurServices = () => {
             <motion.div
               key={index}
               variants={cardVariants}
-              className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 flex flex-col border border-gray-700"
+              className="bg-gray-8900 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 flex flex-col border border-gray-500"
             >
               <div className="relative w-full h-70 overflow-hidden">
                 <Image

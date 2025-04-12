@@ -51,7 +51,7 @@ const WhyChoose = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 flex flex-col border border-gray-700"
+              className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 flex flex-col border border-gray-500"
             >
               <div className="p-6 flex-grow flex flex-col">
                 <div className="flex items-center mb-4">

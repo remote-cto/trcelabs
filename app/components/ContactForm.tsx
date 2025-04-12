@@ -254,7 +254,7 @@ const ContactForm: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-gray-800 shadow-2xl rounded-xl p-6 md:p-8 border border-gray-700"
+              className="bg-gray-900 shadow-2xl rounded-xl p-6 md:p-8 border border-gray-500"
             >
               <h2 className="mb-6 text-2xl font-bold text-green-400">
                 Send Us a Message
