@@ -38,7 +38,7 @@ const LandingPage = forwardRef<HTMLDivElement>((props, ref) => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
-                className="text-lg sm:text-2xl md:text-4xl lg:text-4xl  mb-2 text-white tracking-tight font-['Montserrat'] text-center"
+                className="text-lg sm:text-2xl md:text-4xl lg:text-4xl  mb-2 text-[#05DE72] tracking-tight font-['Montserrat'] text-center"
               >
                 ADVANCED SECURITY SOLUTIONS FOR MODERN TIMES
               </motion.h1>
