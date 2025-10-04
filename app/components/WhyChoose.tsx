@@ -39,7 +39,7 @@ const WhyChoose = () => {
       color: "text-orange-400",
     },
     {
-      icon: Clock,
+      icon: ShieldCheck,
       title: "Vendor & Third-Party Risk Management",
       description:
         "Assess, onboard, and monitor vendors with structured security checks and DPAs to reduce supply-chain risk.",
