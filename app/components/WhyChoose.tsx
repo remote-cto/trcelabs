@@ -1,5 +1,5 @@
 import React from "react";
-import { Shield, CloudCog, CheckCircle, Lock, Clock } from "lucide-react";
+import { Shield, CloudCog, CheckCircle, Lock, Clock, ShieldCheck } from "lucide-react";
 
 const WhyChoose = () => {
   const features = [
