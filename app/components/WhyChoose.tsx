@@ -38,6 +38,15 @@ const WhyChoose = () => {
         "Immediate response to cyber incidents, ensuring minimal downtime and maximum protection.",
       color: "text-orange-400",
     },
+    {
+      icon: Clock,
+      title: "Vendor & Third-Party Risk Management",
+      description:
+        "Assess, onboard, and monitor vendors with structured security checks and DPAs to reduce supply-chain risk.",
+      color: "text-orange-400",
+    },
+
+
   ];
 
   return (
