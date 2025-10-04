@@ -81,7 +81,7 @@ const Page = () => {
           <ul className="space-y-3 pl-6">
             {[
               "Security Posture Assessments",
-              "ISO 27001, PCI-DSS, NIST, GDPR & SOC 2 Compliance",
+              "ISO 27001, DPDPA, PCI-DSS, NIST, GDPR & SOC 2 Compliance",
               "Risk Management & Governance Frameworks",
               "Security Policy Review & Implementation",
             ].map((item, index) => (
