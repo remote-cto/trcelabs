@@ -21,7 +21,7 @@ const WhyChoose = () => {
       icon: CheckCircle,
       title: "Compliance-Ready Solutions",
       description:
-        "We help businesses meet industry standards such as ISO 27001, PCI-DSS, NIST, GDPR, and SOC 2.",
+        "We help businesses meet industry standards such as ISO 27001, DPDPA, PCI-DSS, NIST, GDPR, and SOC 2.",
       color: "text-purple-400",
     },
     {
