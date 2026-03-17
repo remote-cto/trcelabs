@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DPDPA Compliance Self-Assessment | India Data Protection Audit Tool</title>
+<meta name="description" content="Free DPDPA compliance self-assessment tool. Evaluate your organisation against India's Digital Personal Data Protection Act 2023 and DPDP Rules 2025." />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:#185FA5; --blue-light:#E6F1FB; --blue-dark:#0C447C;
+    --green:#3B6D11; --green-light:#EAF3DE;
+    --amber:#854F0B; --amber-light:#FAEEDA;
+    --red:#A32D2D; --red-light:#FCEBEB;
+    --coral:#993C1D; --coral-light:#FAECE7;
+    --gray:#5F5E5A; --gray-light:#F1EFE8;
+    --bg:#FAFAF8; --surface:#FFFFFF;
+    --border:rgba(0,0,0,0.10); --border-md:rgba(0,0,0,0.18);
+    --text:#1A1A18; --text-2:#5F5E5A; --text-3:#888780;
+    --radius-md:8px; --radius-lg:12px; --radius-xl:16px;
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --bg:#1A1A18; --surface:#242420;
+      --border:rgba(255,255,255,0.10); --border-md:rgba(255,255,255,0.18);
+      --text:#F1EFE8; --text-2:#B4B2A9; --text-3:#888780;
+      --blue-light:#042C53; --green-light:#173404;
+      --amber-light:#412402; --red-light:#501313; --coral-light:#4A1B0C;
+    }
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;}
+  .topbar{background:var(--surface);border-bottom:0.5px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+  .topbar-logo{font-size:13px;font-weight:700;color:var(--blue);}
+  .topbar-sep{color:var(--border-md);}
+  .topbar-title{font-size:13px;color:var(--text-2);}
+  .topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .topbar-progress{font-size:12px;color:var(--text-3);}
+  .topbar-pbar{width:80px;height:3px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .topbar-pfill{height:100%;background:var(--blue);border-radius:3px;width:0%;transition:width 0.3s;}
+  .page{max-width:820px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .hero{margin-bottom:2.5rem;}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:var(--blue-light);color:var(--blue-dark);margin-bottom:14px;}
+  .hero h1{font-size:30px;font-weight:700;color:var(--text);line-height:1.25;letter-spacing:-0.5px;margin-bottom:10px;}
+  .hero p{font-size:15px;color:var(--text-2);max-width:580px;line-height:1.65;}
+  .meta-row{display:flex;gap:20px;margin-top:16px;flex-wrap:wrap;}
+  .meta-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3);}
+  .meta-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+  .company-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:2rem;}
+  .company-card label{font-size:12px;color:var(--text-2);display:block;margin-bottom:5px;font-weight:600;}
+  .company-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:540px){.company-row{grid-template-columns:1fr;}}
+  .company-card input,.company-card select{width:100%;padding:9px 12px;font-size:14px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;}
+  .company-card input:focus,.company-card select:focus{border-color:var(--blue);}
+  .section-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden;}
+  .section-header{display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;cursor:pointer;user-select:none;transition:background 0.1s;}
+  .section-header:hover{background:var(--bg);}
+  .sec-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .sec-info{flex:1;}
+  .sec-title{font-size:14px;font-weight:600;color:var(--text);}
+  .sec-sub{font-size:12px;color:var(--text-3);margin-top:1px;}
+  .sec-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--bg);border:0.5px solid var(--border);color:var(--text-2);white-space:nowrap;}
+  .sec-badge.done{background:var(--green-light);color:var(--green);border-color:transparent;}
+  .chevron{font-size:11px;color:var(--text-3);transition:transform 0.2s;margin-left:4px;}
+  .chevron.open{transform:rotate(180deg);}
+  .questions{display:none;border-top:0.5px solid var(--border);}
+  .questions.open{display:block;}
+  .q-item{padding:14px 1.25rem;border-bottom:0.5px solid var(--border);}
+  .q-item:last-child{border-bottom:none;}
+  .q-num{font-size:11px;color:var(--text-3);margin-bottom:4px;}
+  .q-text{font-size:13px;color:var(--text);margin-bottom:6px;line-height:1.55;font-weight:500;}
+  .q-note{font-size:11px;color:var(--text-3);margin-bottom:10px;padding:6px 10px;background:var(--bg);border-radius:6px;border-left:2px solid var(--border-md);line-height:1.5;}
+  .q-options{display:flex;gap:7px;flex-wrap:wrap;}
+  .opt-btn{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--border-md);background:var(--surface);color:var(--text-2);cursor:pointer;transition:all 0.15s;font-weight:500;}
+  .opt-btn:hover{background:var(--bg);}
+  .opt-btn.yes{background:var(--green-light);border-color:#639922;color:var(--green);}
+  .opt-btn.partial{background:var(--amber-light);border-color:#BA7517;color:var(--amber);}
+  .opt-btn.no{background:var(--red-light);border-color:#E24B4A;color:var(--red);}
+  .opt-btn.na{background:var(--gray-light);border-color:var(--border-md);color:var(--gray);}
+  .cta-row{display:flex;gap:10px;margin-top:2rem;align-items:center;flex-wrap:wrap;}
+  .btn-primary{padding:12px 28px;font-size:14px;font-weight:600;border-radius:var(--radius-md);border:none;background:var(--blue);color:#fff;cursor:pointer;transition:background 0.15s;}
+  .btn-primary:hover{background:var(--blue-dark);}
+  .btn-secondary{padding:12px 20px;font-size:14px;border-radius:var(--radius-md);border:0.5px solid var(--border-md);background:var(--surface);color:var(--text-2);cursor:pointer;}
+  .btn-secondary:hover{background:var(--bg);}
+  .result-panel{display:none;margin-top:2.5rem;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;}
+  .result-panel.show{display:block;}
+  .result-hero{padding:2rem;border-bottom:0.5px solid var(--border);background:var(--blue-light);}
+  .result-hero-top{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+  .score-circle{width:90px;height:90px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid var(--blue);flex-shrink:0;background:var(--surface);}
+  .score-big{font-size:28px;font-weight:700;color:var(--text);line-height:1;}
+  .score-pct{font-size:12px;color:var(--text-2);}
+  .score-info{flex:1;}
+  .score-company{font-size:13px;color:var(--text-2);margin-bottom:6px;}
+  .score-verdict{display:inline-block;font-size:13px;font-weight:600;padding:5px 16px;border-radius:20px;margin-bottom:8px;}
+  .score-deadline{font-size:12px;color:var(--text-3);}
+  .result-body{padding:1.75rem 2rem;}
+  .result-section-title{font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-3);margin-bottom:14px;margin-top:1.5rem;}
+  .result-section-title:first-child{margin-top:0;}
+  .pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media(max-width:480px){.pillar-grid{grid-template-columns:1fr;}}
+  .pillar-card{background:var(--bg);border-radius:var(--radius-md);padding:14px;border:0.5px solid var(--border);}
+  .pillar-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .pillar-icon{font-size:14px;}
+  .pillar-name{font-size:12px;color:var(--text-2);flex:1;}
+  .pillar-pct{font-size:18px;font-weight:700;color:var(--text);}
+  .pillar-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden;}
+  .pillar-fill{height:100%;border-radius:4px;}
+  .gap-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid var(--border);}
+  .gap-item:last-child{border-bottom:none;}
+  .gap-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+  .gap-dot.high{background:#E24B4A;}
+  .gap-dot.med{background:#EF9F27;}
+  .gap-content{flex:1;}
+  .gap-text{font-size:13px;color:var(--text);line-height:1.5;font-weight:500;}
+  .gap-action{font-size:12px;color:var(--text-2);margin-top:5px;line-height:1.6;padding:6px 8px;background:var(--bg);border-radius:6px;border-left:2px solid var(--border-md);}
+  .gap-ref{font-size:11px;color:var(--blue);margin-top:4px;}
+  .gap-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .gap-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;}
+  .tag-h{background:var(--red-light);color:var(--red);}
+  .tag-m{background:var(--amber-light);color:var(--amber);}
+  .tag-sec{background:var(--gray-light);color:var(--gray);}
+  .no-gaps{font-size:14px;color:var(--green);padding:14px 16px;background:var(--green-light);border-radius:var(--radius-md);}
+  .result-actions{display:flex;gap:10px;flex-wrap:wrap;padding:1.25rem 2rem;border-top:0.5px solid var(--border);background:var(--bg);}
+  .disclaimer{font-size:11px;color:var(--text-3);line-height:1.65;padding:1rem 2rem 1.5rem;border-top:0.5px solid var(--border);}
+  .footer{margin-top:4rem;padding-top:1.5rem;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .footer-text{font-size:12px;color:var(--text-3);}
+
+  /* ════════════════════════════
+     PRINT / PDF
+  ════════════════════════════ */
+  .pdf-cover,.pdf-body{display:none;}
+
+  @media print{
+    *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+    body{background:#fff!important;color:#1A1A18!important;font-size:11px;margin:0;}
+    .topbar,.hero,.company-card,#sections,.cta-row,.result-actions,.footer,.disclaimer{display:none!important;}
+    .result-panel{display:block!important;border:none!important;border-radius:0!important;margin:0!important;}
+    .result-hero,.result-body{display:none!important;}
+
+    /* Cover */
+    .pdf-cover{
+      display:flex!important;flex-direction:column;
+      min-height:100vh;padding:56px 60px 36px;
+      page-break-after:always;
+    }
+    .pdf-cover-top{display:flex!important;align-items:flex-start;justify-content:space-between;margin-bottom:auto;}
+    .pdf-logo-box{border:1.5px dashed #ccc;border-radius:8px;width:160px;height:52px;display:flex!important;align-items:center;justify-content:center;font-size:10px;color:#bbb;font-style:italic;}
+    .pdf-cover-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#185FA5;background:#E6F1FB;padding:4px 12px;border-radius:20px;}
+    .pdf-cover-mid{margin-top:auto;padding-top:64px;}
+    .pdf-cover-title{font-size:38px;font-weight:800;color:#1A1A18;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px;}
+    .pdf-cover-org{font-size:16px;color:#5F5E5A;margin-bottom:40px;}
+    .pdf-score-block{display:flex!important;align-items:center;gap:28px;padding:28px 32px;background:#E6F1FB;border-radius:14px;margin-bottom:28px;}
+    .pdf-score-ring{width:86px;height:86px;border-radius:50%;border:3px solid #185FA5;background:#fff;display:flex!important;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+    .pdf-score-num{font-size:30px;font-weight:800;color:#1A1A18;line-height:1;}
+    .pdf-score-denom{font-size:10px;color:#888;}
+    .pdf-verdict{font-size:14px;font-weight:700;padding:5px 16px;border-radius:20px;display:inline-block;margin-bottom:8px;}
+    .pdf-cover-stats{font-size:11px;color:#888780;line-height:1.9;}
+    .pdf-cover-footer{display:flex!important;justify-content:space-between;font-size:9px;color:#bbb;border-top:0.5px solid #e0e0e0;padding-top:14px;margin-top:auto;padding-top:32px;}
+
+    /* Body */
+    .pdf-body{display:block!important;padding:48px 60px;}
+    .pdf-section{margin-bottom:32px;page-break-inside:avoid;}
+    .pdf-section-heading{font-size:12px;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:#185FA5;border-bottom:2px solid #185FA5;padding-bottom:5px;margin-bottom:14px;}
+
+    /* Pillar table */
+    .pdf-ptable{width:100%;border-collapse:collapse;font-size:11px;}
+    .pdf-ptable td{padding:7px 8px;border-bottom:0.5px solid #eeece8;vertical-align:middle;}
+    .pdf-ptable td:first-child{width:34%;font-weight:500;color:#1A1A18;}
+    .pdf-ptable td:nth-child(2){width:48%;}
+    .pdf-ptable td:last-child{width:18%;text-align:right;font-weight:700;}
+    .pdf-bar-wrap{height:5px;background:#eee;border-radius:5px;overflow:hidden;}
+    .pdf-bar-fill{height:100%;border-radius:5px;}
+    .pdf-ptable-note{font-size:9px;color:#aaa;margin-top:6px;}
+
+    /* Gap items */
+    .pdf-gap{padding:11px 0;border-bottom:0.5px solid #eeece8;page-break-inside:avoid;}
+    .pdf-gap:last-child{border-bottom:none;}
+    .pdf-gap-row{display:flex!important;align-items:flex-start;gap:9px;margin-bottom:5px;}
+    .pdf-gdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+    .pdf-gdot.high{background:#E24B4A;}
+    .pdf-gdot.med{background:#EF9F27;}
+    .pdf-gbadge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;flex-shrink:0;margin-top:1px;}
+    .pdf-gbadge.high{background:#FCEBEB;color:#A32D2D;}
+    .pdf-gbadge.med{background:#FAEEDA;color:#854F0B;}
+    .pdf-gq{font-size:11px;font-weight:600;color:#1A1A18;line-height:1.5;flex:1;}
+    .pdf-gsec{font-size:9px;color:#888;padding-left:16px;margin-bottom:3px;}
+    .pdf-gaction{font-size:10px;color:#3B3B38;line-height:1.65;padding-left:16px;margin-bottom:3px;}
+    .pdf-gref{font-size:9px;color:#185FA5;padding-left:16px;font-style:italic;}
+
+    .pdf-method{font-size:10px;color:#5F5E5A;line-height:1.75;padding:12px 14px;background:#F9F8F5;border-radius:8px;}
+
+    .pdf-page-footer{display:flex!important;justify-content:space-between;font-size:9px;color:#bbb;border-top:0.5px solid #e8e8e8;padding-top:10px;margin-top:28px;}
+    .pdf-disclaimer-text{font-size:9px;color:#aaa;line-height:1.6;border-top:0.5px solid #e0e0e0;padding-top:10px;margin-top:14px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">DPDPA Audit</div>
+  <div class="topbar-sep">·</div>
+  <div class="topbar-title">India Data Protection Self-Assessment</div>
+  <div class="topbar-right">
+    <span class="topbar-progress" id="topProgress">0 / 32</span>
+    <div class="topbar-pbar"><div class="topbar-pfill" id="topFill"></div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <div class="badge">🇮🇳 DPDPA 2023 + DPDP Rules 2025</div>
+    <h1>DPDPA Compliance<br>Self-Assessment</h1>
+    <p>Evaluate your organisation's readiness against India's Digital Personal Data Protection Act. Answer 32 questions across 8 compliance pillars and receive a scored gap report.</p>
+    <div class="meta-row">
+      <div class="meta-item"><div class="meta-dot"></div> ~10 minutes</div>
+      <div class="meta-item"><div class="meta-dot" style="background:var(--coral)"></div> Deadline: 13 May 2027</div>
+      <div class="meta-item"><div class="meta-dot" style="background:var(--red)"></div> Penalties up to ₹250 crore</div>
+    </div>
+  </div>
+
+  <div class="company-card">
+    <div class="company-row">
+      <div>
+        <label>Organisation name</label>
+        <input type="text" id="companyName" placeholder="e.g. Acme Technologies Pvt. Ltd." />
+      </div>
+      <div>
+        <label>Organisation type</label>
+        <select id="companyType">
+          <option value="">Select type...</option>
+          <option>Startup / MSME</option>
+          <option>Enterprise (India HQ)</option>
+          <option>Multinational (India operations)</option>
+          <option>Fintech / BFSI</option>
+          <option>Healthtech</option>
+          <option>Edtech</option>
+          <option>E-commerce / D2C</option>
+          <option>SaaS / IT services</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="cta-row">
+    <button class="btn-primary" onclick="calcResults()">Generate compliance report →</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset all</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <!-- Screen -->
+    <div class="result-hero" id="screenHero"></div>
+    <div class="result-body" id="screenBody"></div>
+    <div class="result-actions">
+      <button class="btn-primary" onclick="window.print()">Download PDF report</button>
+      <button class="btn-secondary" onclick="resetAll()">Start new assessment</button>
+    </div>
+    <div class="disclaimer"><strong>Disclaimer:</strong> This self-assessment is for awareness purposes only and does not constitute legal advice. Consult qualified data protection counsel for binding guidance. Based on DPDPA 2023 and DPDP Rules notified 13 November 2025.</div>
+
+    <!-- PDF Cover (print only) -->
+    <div class="pdf-cover" id="pdfCover">
+      <div class="pdf-cover-top">
+        <div class="pdf-logo-box">[ Your logo here ]</div>
+        <div class="pdf-cover-tag">DPDPA 2023 · DPDP Rules 2025</div>
+      </div>
+      <div class="pdf-cover-mid">
+        <div class="pdf-cover-title">DPDPA Compliance<br>Audit Report</div>
+        <div class="pdf-cover-org" id="pdfOrg"></div>
+        <div class="pdf-score-block" id="pdfScoreBlock"></div>
+        <div class="pdf-cover-stats" id="pdfStats"></div>
+      </div>
+      <div class="pdf-cover-footer">
+        <span id="pdfFooterOrg"></span>
+        <span id="pdfFooterDate"></span>
+      </div>
+    </div>
+
+    <!-- PDF Body (print only) -->
+    <div class="pdf-body" id="pdfBody"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">Based on DPDPA 2023 and DPDP Rules, November 2025. Not legal advice.</div>
+    <div class="footer-text">For Indian data protection compliance teams.</div>
+  </div>
+</div>
+
+<script>
+const SECTIONS=[
+  {id:"consent",title:"Consent & privacy notice",sub:"Section 6, Rule 3",icon:"📋",color:"#185FA5",colorBg:"#E6F1FB",weight:20,questions:[
+    {id:"c1",text:"Do you display a standalone privacy notice before collecting personal data?",note:"Rule 3 requires a clear, itemised notice prior to seeking consent — not buried in terms and conditions.",action:"Create a standalone pre-consent privacy notice that itemises each data category and its purpose. This must appear before any data collection occurs.",ref:"DPDPA Section 5, Rule 3"},
+    {id:"c2",text:"Does your notice itemise the exact categories of personal data collected and the specific purpose for each?",note:"Blanket notices (e.g. 'data for improving services') do not meet Rule 3 itemisation requirements.",action:"Audit your current privacy notice. Replace generic descriptions with a specific itemised list linking each data type to a stated purpose and the corresponding service.",ref:"DPDPA Rule 3(1)(a)–(b)"},
+    {id:"c3",text:"Is consent obtained through a positive, affirmative action — not pre-ticked boxes, scrolling, or implied consent?",note:"Consent must be free, specific, informed, unconditional, and unambiguous (Section 6). Dark patterns are non-compliant.",action:"Review all consent touchpoints. Remove pre-ticked boxes, scroll-to-agree, and bundled consent. Implement explicit opt-in per processing purpose.",ref:"DPDPA Section 6(1)–6(2)"},
+    {id:"c4",text:"Can users withdraw consent as easily as they originally granted it?",note:"The withdrawal mechanism must be equally accessible — typically a one-click process.",action:"Implement one-click consent withdrawal accessible from account settings or a dedicated preference centre. Test the UX parity with the original consent flow.",ref:"DPDPA Section 6(4)"},
+    {id:"c5",text:"Have you identified a lawful ground for every data processing activity?",note:"Unlike GDPR, DPDPA does not recognise 'legitimate interests' or 'contractual necessity' as grounds.",action:"Conduct a data processing inventory. Map each activity to explicit consent or a legitimate use under Section 7. Eliminate processing relying on GDPR-only grounds.",ref:"DPDPA Section 4 & 7"},
+  ]},
+  {id:"rights",title:"Data principal rights",sub:"Sections 11–14, Rule 5",icon:"🔐",color:"#0F6E56",colorBg:"#E1F5EE",weight:18,questions:[
+    {id:"r1",text:"Can users request and receive a summary of all personal data you hold about them?",note:"Right of access under Section 11 — must include data categories, processors with access, and processing purposes.",action:"Build a Data Access Request workflow that compiles and delivers a personal data summary. Document the process and test the end-to-end flow.",ref:"DPDPA Section 11"},
+    {id:"r2",text:"Can users request correction of inaccurate or incomplete personal data?",note:"Right to correction under Section 12.",action:"Create a correction request channel (self-service or formal request). Ensure corrections propagate to all downstream processors.",ref:"DPDPA Section 12"},
+    {id:"r3",text:"Can users request erasure of their personal data?",note:"Section 13 — erasure is mandatory when purpose is fulfilled or consent is withdrawn.",action:"Implement an erasure workflow that deletes or anonymises data across all systems including backups and processors, triggered by user request or consent withdrawal.",ref:"DPDPA Section 13"},
+    {id:"r4",text:"Do you have a published grievance redressal mechanism with resolution within 90 days?",note:"Rule 5 — a clear, accessible complaint channel is mandatory with a 90-day resolution SLA.",action:"Appoint a Grievance Officer. Publish their contact details prominently on your website/app. Implement a ticket system to track and respond within 90 days.",ref:"DPDPA Section 13(3), Rule 5"},
+    {id:"r5",text:"Can users nominate someone else to exercise their rights on their behalf?",note:"Nomination right under Section 14.",action:"Add a nomination feature to your data rights portal, allowing users to designate a trusted person who can act on their behalf.",ref:"DPDPA Section 14"},
+  ]},
+  {id:"breach",title:"Data breach management",sub:"Section 8(6), Rule 7",icon:"🚨",color:"#993C1D",colorBg:"#FAECE7",weight:18,questions:[
+    {id:"b1",text:"Do you have a documented incident detection and response process for all data breaches?",note:"DPDPA requires reporting ALL breaches — there is no risk-based materiality threshold unlike GDPR.",action:"Develop and test a formal Incident Response Plan (IRP) covering detection, containment, assessment, notification, and post-incident review for all breach types.",ref:"DPDPA Section 8(6), Rule 7"},
+    {id:"b2",text:"Are affected data principals notified of breaches within 72 hours of discovery?",note:"72-hour notification to both DPBI and affected individuals is mandatory regardless of breach severity.",action:"Build 72-hour notification templates and automated triggers. Ensure legal, comms, and security teams have clear escalation protocols activated at breach detection.",ref:"DPDPA Rule 7(1)"},
+    {id:"b3",text:"Do you notify the Data Protection Board of India (DPBI) of breaches within the required timeframe?",note:"DPBI became operational on 13 November 2025.",action:"Identify the DPBI reporting portal and assign a responsible person for regulatory notification. Document the DPBI notification process in your IRP.",ref:"DPDPA Section 8(6), Rule 7(2)"},
+    {id:"b4",text:"Do you maintain a breach incident log with timelines, root cause, and remediation actions?",note:"An audit trail is essential for demonstrating accountability to the DPBI.",action:"Implement a centralised breach log recording every incident, timeline, root cause, notifications sent, and remediation steps. Store securely with restricted access.",ref:"DPDPA Section 8, accountability principle"},
+  ]},
+  {id:"security",title:"Security safeguards",sub:"Section 8, Rule 6",icon:"🛡️",color:"#3B6D11",colorBg:"#EAF3DE",weight:15,questions:[
+    {id:"s1",text:"Have you implemented encryption, access controls, and audit logs for all systems processing personal data?",note:"Section 8 mandates 'reasonable security safeguards' — encryption and access control are the baseline.",action:"Conduct a security baseline assessment. Ensure data-at-rest and in-transit encryption, role-based access controls, and audit logging for all personal data systems.",ref:"DPDPA Section 8(5), Rule 6"},
+    {id:"s2",text:"Do you conduct periodic security audits or vulnerability assessments on personal data systems?",note:"SDFs must conduct annual independent audits. Good practice for all organisations.",action:"Schedule at least annual penetration testing and vulnerability assessments. For SDFs, engage an independent auditor. Track and remediate all findings.",ref:"DPDPA Section 10(2)(b) for SDFs, Section 8 generally"},
+    {id:"s3",text:"Are personal data access rights limited to staff who need them (principle of least privilege)?",note:"Overly broad access rights are a primary breach risk vector and a common audit finding.",action:"Conduct an access rights review across all systems. Revoke unnecessary access. Implement quarterly access recertification. Log all privileged access events.",ref:"DPDPA Section 8(5)"},
+    {id:"s4",text:"Do you have a data retention schedule — automatically deleting personal data once the purpose is fulfilled?",note:"Data minimisation and purpose limitation are core Section 8 obligations.",action:"Map all personal data repositories to retention periods tied to processing purpose. Implement automated deletion or anonymisation when retention periods expire.",ref:"DPDPA Section 8(7)"},
+  ]},
+  {id:"processors",title:"Data processor management",sub:"Section 8(2), Rule 8",icon:"🤝",color:"#534AB7",colorBg:"#EEEDFE",weight:12,questions:[
+    {id:"p1",text:"Do you have written Data Processing Agreements (DPAs) with all third-party vendors processing personal data on your behalf?",note:"You remain liable as the Data Fiduciary for your processors' data handling practices.",action:"Audit all third-party vendors. Execute DPAs with every vendor processing personal data, covering purpose limitation, security standards, breach notification, and audit rights.",ref:"DPDPA Section 8(2)"},
+    {id:"p2",text:"Have you audited your key processors' compliance posture or received compliance certifications from them?",note:"SOC 2 or ISO 27001 from a processor is a reasonable baseline.",action:"Request compliance certifications (SOC 2, ISO 27001, or equivalent) from key processors. Include audit rights in all DPAs. Conduct annual processor risk reviews.",ref:"DPDPA Section 8(2)"},
+    {id:"p3",text:"Do your DPAs restrict processors from sub-processing data without your prior written approval?",note:"Data flow must remain within agreed boundaries defined in processing agreements.",action:"Review all DPAs and add sub-processing restriction clauses. Maintain a register of approved sub-processors and require notification for any changes.",ref:"DPDPA Section 8(2)"},
+  ]},
+  {id:"children",title:"Children's data",sub:"Section 9, Rule 10",icon:"👶",color:"#993556",colorBg:"#FBEAF0",weight:10,questions:[
+    {id:"ch1",text:"Do you collect or process personal data of individuals who may be under 18 years of age?",note:"If your platform is not directed at children, answer N/A for remaining questions in this section.",action:"If you cannot confirm your platform is 100% adult-only, assume minors may be present and implement appropriate controls immediately.",ref:"DPDPA Section 9"},
+    {id:"ch2",text:"Have you implemented verifiable parental consent mechanisms before processing a child's personal data?",note:"Rule 10 — the parent must be verified as an adult using government-recognised identity or a Digital Locker token.",action:"Implement a parental consent flow that verifies the parent's identity using government-issued ID or Digital Locker before any child data is collected.",ref:"DPDPA Section 9(1), Rule 10"},
+    {id:"ch3",text:"Do you have age-gating controls to identify when a user is a minor before any data is collected?",note:"Age verification must occur before data collection begins.",action:"Implement age-gating at registration or first interaction. For high-risk platforms, use active verification with a parental consent flow for users identified as under 18.",ref:"DPDPA Section 9(1)"},
+  ]},
+  {id:"sdf",title:"Significant Data Fiduciary readiness",sub:"Section 10 — expected by May 2027",icon:"🏢",color:"#854F0B",colorBg:"#FAEEDA",weight:7,questions:[
+    {id:"sd1",text:"Have you assessed whether your organisation may be classified as a Significant Data Fiduciary (SDF)?",note:"SDF criteria: data volume, sensitivity, national security risk, and systemic risk. Designation expected by May 2027.",action:"Conduct an SDF risk self-assessment. If data volume, sensitivity, or systemic risk factors apply, engage legal counsel to prepare for SDF designation ahead of May 2027.",ref:"DPDPA Section 10(1)"},
+    {id:"sd2",text:"If classified as SDF, have you identified a Data Protection Officer (DPO) who is an Indian resident?",note:"DPO must be an Indian resident with adequate data protection expertise. Answer N/A if SDF status is unlikely.",action:"Identify and designate a DPO who is an Indian resident. Define their reporting line, responsibilities, and ensure they have adequate data protection expertise.",ref:"DPDPA Section 10(2)(a)"},
+    {id:"sd3",text:"Are you prepared to conduct annual Data Protection Impact Assessments (DPIAs) and independent audits if designated SDF?",note:"DPIAs and annual audits are mandatory SDF obligations in Phase 2.",action:"Develop a DPIA methodology and identify an independent auditor now. Conduct a trial DPIA on your highest-risk processing activity as preparation.",ref:"DPDPA Section 10(2)(b)–(c)"},
+  ]},
+  {id:"crossborder",title:"Cross-border data transfers",sub:"Section 16 — Phase 2 (post May 2027)",icon:"🌐",color:"#5F5E5A",colorBg:"#F1EFE8",weight:0,questions:[
+    {id:"cb1",text:"Have you mapped all cross-border data flows involving personal data of Indian residents?",note:"Cross-border transfer restrictions will be notified by Central Government in Phase 2.",action:"Conduct a data flow mapping exercise covering all outbound transfers. Document destination countries, legal entities receiving data, and data types involved.",ref:"DPDPA Section 16 (Phase 2)"},
+    {id:"cb2",text:"Do you have mechanisms ready to restrict transfers to non-approved countries once the government list is published?",note:"Phase 2 restricted transfer framework expected post May 2027.",action:"Build country restriction controls into your data transfer architecture now so they can be activated quickly once the approved country list is published.",ref:"DPDPA Section 16 (Phase 2)"},
+  ]},
+];
+
+const answers={};
+const totalAnswerable=SECTIONS.reduce((a,s)=>a+s.questions.length,0);
+
+function buildSections(){
+  const cont=document.getElementById('sections');
+  cont.innerHTML='';
+  SECTIONS.forEach((sec,si)=>{
+    const div=document.createElement('div');
+    div.className='section-card';
+    div.innerHTML=`
+      <div class="section-header" onclick="toggleSection('qs_${sec.id}',this)">
+        <div class="sec-icon" style="background:${sec.colorBg}">${sec.icon}</div>
+        <div class="sec-info">
+          <div class="sec-title">${sec.title}</div>
+          <div class="sec-sub">${sec.sub}${sec.weight===0?' · Informational — Phase 2':''}</div>
+        </div>
+        <span class="sec-badge" id="badge_${sec.id}">0 / ${sec.questions.length}</span>
+        <span class="chevron${si===0?' open':''}">▼</span>
+      </div>
+      <div class="questions${si===0?' open':''}" id="qs_${sec.id}">
+        ${sec.questions.map((q,qi)=>`
+          <div class="q-item">
+            <div class="q-num">Q${qi+1} of ${sec.questions.length}</div>
+            <div class="q-text">${q.text}</div>
+            ${q.note?`<div class="q-note">${q.note}</div>`:''}
+            <div class="q-options">
+              <button class="opt-btn" onclick="answer('${q.id}','yes',this)">✓ Yes</button>
+              <button class="opt-btn" onclick="answer('${q.id}','partial',this)">~ Partially</button>
+              <button class="opt-btn" onclick="answer('${q.id}','no',this)">✕ No</button>
+              <button class="opt-btn" onclick="answer('${q.id}','na',this)">N/A</button>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    cont.appendChild(div);
+  });
+}
+
+function toggleSection(id,header){
+  document.getElementById(id).classList.toggle('open');
+  header.querySelector('.chevron').classList.toggle('open');
+}
+
+function answer(qid,val,btn){
+  answers[qid]=val;
+  btn.closest('.q-options').querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('yes','partial','no','na'));
+  btn.classList.add(val);
+  updateProgress();
+  updateBadges();
+}
+
+function updateProgress(){
+  const done=Object.keys(answers).length;
+  const pct=Math.round((done/totalAnswerable)*100);
+  document.getElementById('topFill').style.width=pct+'%';
+  document.getElementById('topProgress').textContent=`${done} / ${totalAnswerable}`;
+}
+
+function updateBadges(){
+  SECTIONS.forEach(sec=>{
+    const answered=sec.questions.filter(q=>answers[q.id]).length;
+    const badge=document.getElementById('badge_'+sec.id);
+    badge.textContent=`${answered} / ${sec.questions.length}`;
+    badge.className='sec-badge'+(answered===sec.questions.length?' done':'');
+  });
+}
+
+function calcScore(){
+  let totalW=0,weightedPts=0;
+  const pillarScores={};
+  SECTIONS.forEach(sec=>{
+    if(sec.weight===0){pillarScores[sec.id]={pct:null,...sec};return;}
+    let pts=0,max=0;
+    sec.questions.forEach(q=>{
+      const a=answers[q.id];
+      if(!a||a==='na')return;
+      max+=2;
+      if(a==='yes')pts+=2;
+      else if(a==='partial')pts+=1;
+    });
+    const pct=max>0?Math.round((pts/max)*100):null;
+    pillarScores[sec.id]={pct,...sec};
+    if(pct!==null){totalW+=sec.weight;weightedPts+=pct*sec.weight;}
+  });
+  const overall=totalW>0?Math.round(weightedPts/totalW):0;
+  return{overall,pillarScores};
+}
+
+function getVerdict(s){
+  if(s>=80)return{label:'Largely compliant',bg:'#EAF3DE',color:'#3B6D11'};
+  if(s>=60)return{label:'Partially compliant',bg:'#FAEEDA',color:'#854F0B'};
+  if(s>=40)return{label:'Significant compliance gaps',bg:'#FAECE7',color:'#993C1D'};
+  return{label:'High risk — urgent action needed',bg:'#FCEBEB',color:'#A32D2D'};
+}
+
+function pColor(pct){
+  if(pct>=75)return'#639922';
+  if(pct>=50)return'#EF9F27';
+  return'#E24B4A';
+}
+
+function getGaps(){
+  const gaps=[];
+  SECTIONS.forEach(sec=>sec.questions.forEach(q=>{
+    const a=answers[q.id];
+    if(a==='no')gaps.push({...q,sec:sec.title,pri:'high'});
+    else if(a==='partial')gaps.push({...q,sec:sec.title,pri:'med'});
+  }));
+  return gaps.sort((a,b)=>a.pri==='high'&&b.pri!=='high'?-1:1);
+}
+
+function calcResults(){
+  const{overall,pillarScores}=calcScore();
+  const verdict=getVerdict(overall);
+  const gaps=getGaps();
+  const company=document.getElementById('companyName').value||'Your organisation';
+  const sel=document.getElementById('companyType');
+  const orgType=sel.value?sel.options[sel.selectedIndex].text:'';
+  const today=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  /* SCREEN */
+  document.getElementById('screenHero').innerHTML=`
+    <div class="result-hero-top">
+      <div class="score-circle"><div class="score-big">${overall}</div><div class="score-pct">/ 100</div></div>
+      <div class="score-info">
+        <div class="score-company">DPDPA compliance score — ${company}</div>
+        <div class="score-verdict" style="background:${verdict.bg};color:${verdict.color}">${verdict.label}</div>
+        <div class="score-deadline">Full enforcement: 13 May 2027 · ${gaps.filter(g=>g.pri==='high').length} critical gap(s) · ${gaps.filter(g=>g.pri==='med').length} area(s) needing improvement</div>
+      </div>
+    </div>`;
+
+  const pillarCardsHTML=Object.values(pillarScores).filter(p=>p.weight>0).map(p=>{
+    if(p.pct===null)return`<div class="pillar-card"><div class="pillar-top"><span class="pillar-icon">${p.icon}</span><span class="pillar-name">${p.title}</span><span class="pillar-pct" style="color:var(--text-3)">—</span></div><div class="pillar-bar"></div></div>`;
+    return`<div class="pillar-card"><div class="pillar-top"><span class="pillar-icon">${p.icon}</span><span class="pillar-name">${p.title}</span><span class="pillar-pct">${p.pct}%</span></div><div class="pillar-bar"><div class="pillar-fill" style="width:${p.pct}%;background:${pColor(p.pct)}"></div></div></div>`;
+  }).join('');
+
+  const gapsHTML=gaps.length===0
+    ?`<div class="no-gaps">✓ No critical or partial gaps identified. Review N/A answers with legal counsel for applicability.</div>`
+    :gaps.map(g=>`
+      <div class="gap-item">
+        <div class="gap-dot ${g.pri}"></div>
+        <div class="gap-content">
+          <div class="gap-text">${g.text}</div>
+          <div class="gap-action">→ <strong>Action:</strong> ${g.action}</div>
+          <div class="gap-ref">Legal reference: ${g.ref}</div>
+          <div class="gap-tags">
+            <span class="gap-tag ${g.pri==='high'?'tag-h':'tag-m'}">${g.pri==='high'?'Critical gap':'Needs improvement'}</span>
+            <span class="gap-tag tag-sec">${g.sec}</span>
+          </div>
+        </div>
+      </div>`).join('');
+
+  document.getElementById('screenBody').innerHTML=`
+    <div class="result-section-title">Compliance by pillar</div>
+    <div class="pillar-grid">${pillarCardsHTML}</div>
+    <div class="result-section-title">Priority gaps with recommended actions (${gaps.length})</div>
+    <div>${gapsHTML}</div>`;
+
+  /* PDF COVER */
+  document.getElementById('pdfOrg').textContent=company+(orgType?' · '+orgType:'');
+  document.getElementById('pdfScoreBlock').innerHTML=`
+    <div class="pdf-score-ring"><div class="pdf-score-num">${overall}</div><div class="pdf-score-denom">/ 100</div></div>
+    <div>
+      <div class="pdf-verdict" style="background:${verdict.bg};color:${verdict.color}">${verdict.label}</div>
+      <div class="pdf-cover-stats">
+        Critical gaps: ${gaps.filter(g=>g.pri==='high').length} &nbsp;·&nbsp;
+        Needs improvement: ${gaps.filter(g=>g.pri==='med').length} &nbsp;·&nbsp;
+        Questions answered: ${Object.keys(answers).length} of ${totalAnswerable}
+      </div>
+    </div>`;
+  document.getElementById('pdfStats').innerHTML=
+    `Enforcement deadline: 13 May 2027 &nbsp;·&nbsp; Maximum penalty: ₹250 crore per violation<br>
+     Based on DPDPA 2023 and DPDP Rules notified 13 November 2025`;
+  document.getElementById('pdfFooterOrg').textContent=company;
+  document.getElementById('pdfFooterDate').textContent='Report date: '+today;
+
+  /* PDF BODY */
+  const pillarRows=Object.values(pillarScores).filter(p=>p.weight>0).map(p=>{
+    const d=p.pct!==null?p.pct+'%':'N/A';
+    const fc=p.pct!==null?pColor(p.pct):'#ccc';
+    const bw=p.pct!==null?p.pct:0;
+    return`<tr><td>${p.icon} ${p.title}</td><td><div class="pdf-bar-wrap"><div class="pdf-bar-fill" style="width:${bw}%;background:${fc}"></div></div></td><td style="color:${fc}">${d}</td></tr>`;
+  }).join('');
+
+  const highGaps=gaps.filter(g=>g.pri==='high');
+  const medGaps=gaps.filter(g=>g.pri==='med');
+
+  function renderPdfGaps(list){
+    if(list.length===0)return'<p style="font-size:10px;color:#3B6D11;padding:8px 12px;background:#EAF3DE;border-radius:6px;">None identified.</p>';
+    return list.map(g=>`
+      <div class="pdf-gap">
+        <div class="pdf-gap-row">
+          <div class="pdf-gdot ${g.pri}"></div>
+          <div class="pdf-gq">${g.text}</div>
+          <div class="pdf-gbadge ${g.pri}">${g.pri==='high'?'CRITICAL':'PARTIAL'}</div>
+        </div>
+        <div class="pdf-gsec">${g.sec}</div>
+        <div class="pdf-gaction"><strong>Recommended action:</strong> ${g.action}</div>
+        <div class="pdf-gref">Legal reference: ${g.ref}</div>
+      </div>`).join('');
+  }
+
+  document.getElementById('pdfBody').innerHTML=`
+    <div class="pdf-section">
+      <div class="pdf-section-heading">1. Compliance by pillar</div>
+      <table class="pdf-ptable">
+        <colgroup><col style="width:34%"><col style="width:48%"><col style="width:18%"></colgroup>
+        ${pillarRows}
+      </table>
+      <div class="pdf-ptable-note">Weights: Consent 20% · Rights 18% · Breach 18% · Security 15% · Processors 12% · Children 10% · SDF 7% · Cross-border: informational only (Phase 2, post May 2027)</div>
+    </div>
+    <div class="pdf-section">
+      <div class="pdf-section-heading">2. Critical gaps — immediate action required (${highGaps.length})</div>
+      ${renderPdfGaps(highGaps)}
+    </div>
+    <div class="pdf-section">
+      <div class="pdf-section-heading">3. Areas needing improvement (${medGaps.length})</div>
+      ${renderPdfGaps(medGaps)}
+    </div>
+    <div class="pdf-section">
+      <div class="pdf-section-heading">4. Scoring methodology</div>
+      <div class="pdf-method">
+        Each question is scored: Yes = 2 pts · Partially = 1 pt · No = 0 pts · N/A = excluded from denominator.<br>
+        Pillar score = (points earned ÷ max possible) × 100. Overall score = weighted average of pillar scores.<br>
+        Verdict bands: 80–100 Largely compliant · 60–79 Partially compliant · 40–59 Significant gaps · 0–39 High risk.
+      </div>
+    </div>
+    <div class="pdf-page-footer">
+      <span>${company} · DPDPA Compliance Report · ${today}</span>
+      <span>DPDPA 2023 + DPDP Rules 2025 · Not legal advice</span>
+    </div>
+    <div class="pdf-disclaimer-text">
+      Disclaimer: This self-assessment report is for awareness and indicative purposes only. It does not constitute legal advice and should not be relied upon as a definitive compliance determination.
+      Organisations should consult qualified data protection counsel for binding guidance specific to their circumstances.
+      Based on DPDPA 2023 and DPDP Rules notified 13 November 2025. SDF provisions and cross-border transfer rules are expected in Phase 2 by May 2027.
+    </div>`;
+
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetAll(){
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  document.getElementById('companyName').value='';
+  document.getElementById('companyType').value='';
+  document.getElementById('resultPanel').classList.remove('show');
+  buildSections();
+  updateProgress();
+}
+
+buildSections();
+</script>
+</body>
+</html>

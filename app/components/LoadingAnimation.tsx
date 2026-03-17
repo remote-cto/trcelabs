@@ -15,7 +15,10 @@ const LoadingAnimation = () => {
   if (!isLoading) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 z-50">
+    <div
+      style={{ fontFamily: "'Share Tech Mono', 'Courier New', monospace" }}
+      className="fixed inset-0 flex items-center justify-center bg-gray-900 z-50"
+    >
       <div className="relative">
         {/* Outer circle */}
         <div className="w-24 h-24 rounded-full border-4 border-green-700 border-t-green-500 animate-spin"></div>
@@ -27,7 +30,7 @@ const LoadingAnimation = () => {
         <div className="absolute top-6 left-6 w-12 h-12 rounded-full bg-gradient-to-br from-green-600 to-green-900 animate-pulse"></div>
 
         {/* Text below */}
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-green-400 font-bold text-lg font-mono">
+        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-green-400 font-bold text-lg ">
           Loading...
         </div>
       </div>
