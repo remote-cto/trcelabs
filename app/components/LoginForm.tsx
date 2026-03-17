@@ -93,6 +93,14 @@ export default function LoginForm() {
         .corner-br::after { content: ''; position: absolute; bottom: -1px; right: -1px; width: 14px; height: 14px; border-bottom: 2px solid #05DE72; border-right: 2px solid #05DE72; }
         .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #05DE72; box-shadow: 0 0 6px #05DE72; animation: pulse-border 2s ease-in-out infinite; }
       `}</style>
+      <div className="absolute top-6 left-6 z-20">
+        <Link
+          href="/"
+          className="text-xs text-[#05DE72] hover:text-[#119955] transition-all tracking-[0.2em] uppercase bg-gray-800 px-3 py-4 rounded-xl"
+        >
+          ← Back to Home
+        </Link>
+      </div>
 
       <div className="absolute inset-0 grid-bg" />
       <div className="scanline" />

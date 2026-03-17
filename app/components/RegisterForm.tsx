@@ -151,6 +151,14 @@ export default function RegisterForm() {
         .otp-input:focus { border-color: #05DE72; box-shadow: 0 0 0 2px rgba(5,222,114,0.25); }
         .otp-input:not(:placeholder-shown) { border-color: #05DE72; }
       `}</style>
+      <div className="absolute top-6 left-6 z-20">
+        <Link
+          href="/"
+          className="text-xs text-[#05DE72] hover:text-[#119955] transition-all tracking-[0.2em] uppercase bg-gray-800 px-3 py-4 rounded-xl"
+        >
+          ← Back to Home
+        </Link>
+      </div>
 
       <div className="absolute inset-0 grid-bg" />
       <div className="scanline" />

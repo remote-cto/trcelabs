@@ -1,10 +1,10 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail", // or use "smtp.ethereal.email" for testing
+  service: "gmail", 
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Use Gmail App Password (not your real password)
+    pass: process.env.EMAIL_PASSWORD, 
   },
 });
 
