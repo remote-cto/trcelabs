@@ -1172,10 +1172,11 @@
   </div>
 
   <script>
-    async function handleLogout() {
-      await fetch('/api/auth/logout', { method: 'POST' });
-      window.location.href = '/';
-    }
+   async function handleLogout() {
+  await fetch('/api/auth/logout', { method: 'POST' });
+  // ✅ Force hard navigation to clear /dashboard from URL
+  window.top.location.replace('/');
+}
     const SECTIONS = [
       {
         id: "consent", title: "Consent & privacy notice", sub: "Section 6, Rule 3", icon: "📋", color: "#185FA5", colorBg: "#E6F1FB", weight: 20, questions: [
