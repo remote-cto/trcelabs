@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>trcelabs | Advanced Cybersecurity Solutions</title>
+    <title>Trcelabs | Advanced Cybersecurity Solutions</title>
     <meta name="description"
         content="trcelabs provides elite cybersecurity, threat intelligence, and incident response to protect your digital assets.">
 
@@ -322,27 +322,17 @@
   if (parentPath !== '/') {
     window.parent.history.replaceState(null, '', '/');
   }
-
-  // ✅ Force title immediately
+  
+  // ✅ Always force parent title on load
   window.parent.document.title = siteTitle;
-
-  // ✅ Watch for any title changes by Next.js and override them
-  const titleObserver = new MutationObserver(() => {
-    if (window.parent.document.title !== siteTitle) {
-      window.parent.document.title = siteTitle;
-    }
-  });
-
-  titleObserver.observe(
-    window.parent.document.querySelector('title'),
-    { childList: true }
-  );
 
   // Sync hash links to parent URL
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', () => {
       const hash = link.getAttribute('href');
       window.parent.history.pushState(null, '', hash);
+      // ✅ Re-apply title on every hash change
+      window.parent.document.title = siteTitle;
     });
   });
 
@@ -351,13 +341,11 @@
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const href = link.getAttribute('href');
-      // ✅ Stop observing before navigating away
-      titleObserver.disconnect();
       window.parent.location.href = href;
     });
   });
 
-  // ✅ Re-apply title on browser back/forward
+  // ✅ Listen for any popstate (back/forward browser buttons) and re-apply title
   window.parent.addEventListener('popstate', () => {
     window.parent.document.title = siteTitle;
   });

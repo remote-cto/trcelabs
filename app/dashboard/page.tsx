@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Trcelabs | Advanced Cybersecurity Solutions",
+};
+
 const Page = () => {
   return (
     <>
