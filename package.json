@@ -12,6 +12,7 @@
     "@tanstack/react-form": "^1.28.5",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^12.6.0",
+    "jose": "^6.2.1",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.484.0",
     "mongoose": "^8.23.0",

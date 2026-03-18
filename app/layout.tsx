@@ -29,6 +29,7 @@ export default function RootLayout({
       >
         {children}
         <Toaster
+          position="top-center"
           theme="dark"
           toastOptions={{
             style: {

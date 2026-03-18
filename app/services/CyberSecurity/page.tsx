@@ -43,7 +43,7 @@ const Page = () => {
       <div className="container mx-auto max-w-4xl">
         <button
           onClick={handleGoBack}
-          className="absolute top-4 right-4 bg-white rounded-full p-2 transition-all duration-300"
+          className="absolute top-4 right-4 bg-white rounded-full p-2 transition-all duration-300 cursor-pointer"
         >
           <ChevronLeft className="text-black" size={24} />
         </button>
