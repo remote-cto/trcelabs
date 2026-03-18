@@ -276,7 +276,7 @@ export default function LoginForm() {
               {loading ? "AUTHENTICATING..." : "AUTHENTICATE"}
             </button>
           </form>
-
+{/* 
           <div className="mt-6 pt-5 border-t border-gray-800">
             <p className="text-center text-gray-500 text-xs tracking-wider">
               NO ACCESS?{" "}
@@ -287,7 +287,7 @@ export default function LoginForm() {
                 REQUEST CREDENTIALS
               </Link>
             </p>
-          </div>
+          </div> */}
 
           <div className="mt-4 flex items-center justify-center gap-4 text-[10px] text-gray-700 tracking-widest">
             <span>256-BIT ENC</span>

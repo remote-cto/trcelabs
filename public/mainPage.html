@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trcelabs | Advanced Cybersecurity Solutions</title>
+    <meta name="description"
+        content="trcelabs provides elite cybersecurity, threat intelligence, and incident response to protect your digital assets.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="background-radial"></div>
+    <div class="noise-overlay"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <header class="navbar glass-header" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="glitch-text" data-text="trce">trce</span><span class="neon-text">labs</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#features" class="nav-link">Platform</a>
+                <a href="#stats" class="nav-link">Intelligence</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <a href="#contact" class="btn btn-primary cta-nav">
+                <span>Deploy Security</span>
+                <i class='bx bx-right-arrow-alt'></i>
+            </a>
+
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <i class='bx bx-menu'></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="badge fade-up">
+                        <span class="badge-dot"></span>
+                        <span class="badge-text">STATUS: SECURE. SYSTEMS ONLINE.</span>
+                    </div>
+                    <h1 class="hero-title fade-up" style="transition-delay: 0.1s;">
+                        Architecting the <br>
+                        <span class="text-gradient">Unknown.</span><br>
+                        Securing the <span class="text-gradient-alt">Future.</span>
+                    </h1>
+                    <p class="hero-subtitle fade-up" style="transition-delay: 0.2s;">
+                        trcelabs deploys next-generation threat intelligence and zero-trust architectures to immunize
+                        your enterprise against state-sponsored and sophisticated cyber adversaries.
+                    </p>
+                    <div class="hero-actions fade-up" style="transition-delay: 0.3s;">
+                        <a href="/login" class="btn btn-primary btn-lg">
+                            <!--<span>Initialize Defense</span>-->
+                            <span>Are you DPDP Ready?</span>
+                            <i class='bx bx-shield-quarter'></i>
+                        </a>
+                        <a href="#services" class="btn btn-outline btn-lg">
+                            <span>Explore Capabilities</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual fade-in" style="transition-delay: 0.5s;">
+                    <div class="abstract-globe">
+                        <div class="globe-sphere"></div>
+                        <div class="orbit orbit-1"></div>
+                        <div class="orbit orbit-2"></div>
+                        <div class="orbit orbit-3"></div>
+                        <div class="data-particles">
+                            <!-- Particles generated via CSS/JS -->
+                        </div>
+                        <div class="scanline"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="scroll-indicator">
+                <span class="scroll-text">SCROLL TO BREACH</span>
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </div>-->
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services section-padding">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <span class="section-label">// CORE DIRECTIVES</span>
+                    <h2 class="section-title">Tactical <span class="text-gradient">Capabilities</span></h2>
+                    <p class="section-desc">We don't just respond to threats. We hunt them, analyze our findings,
+                        and
+                        engineer proactive countermeasures.</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card glass-panel fade-up" style="transition-delay: 0.1s;">
+                        <div class="card-icon-wrapper">
+                            <i class='bx bx-radar'></i>
+                        </div>
+                        <h3 class="card-title">Threat Intel</h3>
+                        <p class="card-text">Actionable intelligence gathered from the dark web and global sensor
+                            networks to predict and preempt attacks.</p>
+                        <ul class="card-features">
+                            <li><i class='bx bx-check'></i> Dark Web Monitoring</li>
+                            <li><i class='bx bx-check'></i> Adversary Profiling</li>
+                            <li><i class='bx bx-check'></i> Attack Surface Analysis</li>
+                        </ul>
+                        <div class="card-glow"></div>
+                    </div>
+
+                    <div class="service-card glass-panel fade-up" style="transition-delay: 0.2s;">
+                        <div class="card-icon-wrapper">
+                            <i class='bx bx-code-alt'></i>
+                        </div>
+                        <h3 class="card-title">Digital Forensics</h3>
+                        <p class="card-text">Advanced forensic capabilities designed to trace, analyze, and decode
+                            complex cyber incidents across systems, networks, and endpoints with precision.</p>
+                        <ul class="card-features">
+                            <li><i class='bx bx-check'></i> Cybecrime Investigation</li>
+                            <li><i class='bx bx-check'></i> Digital Footprints Analysis</li>
+                            <li><i class='bx bx-check'></i> Tracking Cybercrimes with Precision</li>
+                        </ul>
+                        <div class="card-glow"></div>
+                    </div>
+
+                    <div class="service-card glass-panel fade-up" style="transition-delay: 0.3s;">
+                        <div class="card-icon-wrapper">
+                            <i class='bx bxs-network-chart'></i>
+                        </div>
+                        <h3 class="card-title">Security Readiness</h3>
+                        <p class="card-text">Ensuring your organization is fully prepared to withstand evolving
+                            cyber
+                            threats through structured assessments, risk evaluation, and compliance alignment.</p>
+                        <ul class="card-features">
+                            <li><i class='bx bx-check'></i> VAPT and Security Audits</li>
+                            <li><i class='bx bx-check'></i> Risk and Compliance Assessment</li>
+                            <li><i class='bx bx-check'></i> DPDP Readiness and Data Protection Compliance</li>
+                        </ul>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Divider -->
+        <section id="stats" class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item fade-up">
+                        <div class="stat-number"><span class="counter" data-target="99.99">0</span>%</div>
+                        <div class="stat-label">Uptime Guaranteed</div>
+                    </div>
+                    <div class="stat-item fade-up" style="transition-delay: 0.1s;">
+                        <div class="stat-number"><span class="counter" data-target="2">0</span>ms</div>
+                        <div class="stat-label">Threat Detection Time</div>
+                    </div>
+                    <div class="stat-item fade-up" style="transition-delay: 0.2s;">
+                        <div class="stat-number">> <span class="counter" data-target="500">0</span>M</div>
+                        <div class="stat-label">Events Analyzed Daily</div>
+                    </div>
+                    <div class="stat-item fade-up" style="transition-delay: 0.3s;">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">SOC Operations</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Features section -->
+        <section id="features" class="features section-padding">
+            <div class="container">
+                <div class="features-layout">
+                    <div class="feature-text fade-right">
+                        <span class="section-label">// TRCELABS PLATFORM</span>
+                        <h2 class="section-title">Autonomous <span class="text-gradient">Defense</span> Engine.</h2>
+                        <p class="section-desc">Our proprietary AI-driven engine integrates seamlessly into your
+                            infrastructure, providing military-grade security without compromising performance.</p>
+
+                        <div class="feature-list">
+                            <div class="feature-list-item">
+                                <div class="fl-icon"><i class='bx bx-brain'></i></div>
+                                <div class="fl-content">
+                                    <h4>Machine Learning Analytics</h4>
+                                    <p>Identifies anomalous behavior patterns indicative of zero-day exploits.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list-item">
+                                <div class="fl-icon"><i class='bx bx-bolt-circle'></i></div>
+                                <div class="fl-content">
+                                    <h4>Automated Remediation</h4>
+                                    <p>Isolates compromised endpoints instantly, containing threats autonomously.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="feature-list-item">
+                                <div class="fl-icon"><i class='bx bx-lock-alt'></i></div>
+                                <div class="fl-content">
+                                    <h4>Quantum-Resistant Encryption</h4>
+                                    <p>Future-proof your sensitive data against emerging cryptographic threats.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-visual fade-left">
+                        <div class="dashboard-mockup glass-panel">
+                            <div class="mac-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="dashboard-content">
+                                <div class="dash-header">
+                                    <div class="dash-title">SYSTEM STATUS</div>
+                                    <div class="dash-status active">ALL CLEAR</div>
+                                </div>
+                                <div class="dash-body">
+                                    <div class="chart-container">
+                                        <div class="bar" style="height: 40%"></div>
+                                        <div class="bar" style="height: 70%"></div>
+                                        <div class="bar" style="height: 30%"></div>
+                                        <div class="bar" style="height: 90%"></div>
+                                        <div class="bar" style="height: 50%"></div>
+                                        <div class="bar" style="height: 20%"></div>
+                                        <div class="bar" style="height: 80%"></div>
+                                        <div class="bar" style="height: 60%"></div>
+                                    </div>
+                                    <div class="log-lines">
+                                        <div class="log-line"><span>[14:02:45]</span> Analyzing incoming traffic...
+                                        </div>
+                                        <div class="log-line"><span>[14:02:46]</span> Potential DDoS signature
+                                            detected.
+                                        </div>
+                                        <div class="log-line alert"><span>[14:02:46]</span> Mitigating attack vector
+                                            via
+                                            BGP null routing.</div>
+                                        <div class="log-line"><span>[14:02:48]</span> Traffic normalized.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Contact -->
+        <section id="contact" class="contact section-padding">
+            <div class="container">
+                <div class="contact-card glass-panel fade-up">
+                    <div class="contact-content">
+                        <h2>Ready to secure your perimeter?</h2>
+                        <p>Engage with our experts to design a resilient cybersecurity posture tailored to your
+                            organization's unique threat landscape.</p>
+                    </div>
+                    <form class="contact-form" onsubmit="event.preventDefault();">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Name / Callsign" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Secure Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="4" placeholder="Briefing / Requirements" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span>Initialize Secure Channel</span>
+                            <i class='bx bx-paper-plane'></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="logo">
+                    <span class="glitch-text" data-text="trce">trce</span><span class="neon-text">labs</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security Disclosure</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 trcelabs operations. All rights reserved. Encrypted end-to-end.
+            </div>
+        </div>
+    </footer>
+<script>
+  const siteTitle = document.title;
+
+  // ✅ Only reset to '/' if coming from another route like /dashboard
+  const parentPath = window.parent.location.pathname;
+  if (parentPath !== '/') {
+    window.parent.history.replaceState(null, '', '/');
+  }
+
+  // ✅ Force title immediately
+  window.parent.document.title = siteTitle;
+
+  // ✅ Watch for any title changes by Next.js and override them
+  const titleObserver = new MutationObserver(() => {
+    if (window.parent.document.title !== siteTitle) {
+      window.parent.document.title = siteTitle;
+    }
+  });
+
+  titleObserver.observe(
+    window.parent.document.querySelector('title'),
+    { childList: true }
+  );
+
+  // Sync hash links to parent URL
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const hash = link.getAttribute('href');
+      window.parent.history.pushState(null, '', hash);
+    });
+  });
+
+  // Force non-hash links to navigate the parent window
+  document.querySelectorAll('a[href^="/"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      // ✅ Stop observing before navigating away
+      titleObserver.disconnect();
+      window.parent.location.href = href;
+    });
+  });
+
+  // ✅ Re-apply title on browser back/forward
+  window.parent.addEventListener('popstate', () => {
+    window.parent.document.title = siteTitle;
+  });
+</script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
