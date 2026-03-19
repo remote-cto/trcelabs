@@ -1,3 +1,16 @@
+
+// Mobile menu toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('nav-open');
+    const icon = mobileMenuBtn.querySelector('i');
+    icon.classList.toggle('bx-menu');
+    icon.classList.toggle('bx-x');
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Custom Cursor Glow
     const cursorGlow = document.getElementById('cursorGlow');
