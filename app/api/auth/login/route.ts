@@ -1,3 +1,5 @@
+//app/auth/login/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { SignJWT } from "jose";

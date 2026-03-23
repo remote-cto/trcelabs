@@ -70,7 +70,7 @@
                         your enterprise against state-sponsored and sophisticated cyber adversaries.
                     </p>
                     <div class="hero-actions fade-up" style="transition-delay: 0.3s;">
-                        <a href="/login" class="btn btn-primary btn-xs">
+                        <a href="/dpdpa" class="btn btn-primary btn-xs">
                             <!--<span>Initialize Defense</span>-->
                             <span>Are you DPDP Ready?</span>
                             <i class='bx bx-shield-quarter'></i>
@@ -272,7 +272,7 @@
                         <p>Engage with our experts to design a resilient cybersecurity posture tailored to your
                             organization's unique threat landscape.</p>
                     </div>
-                    <form class="contact-form" onsubmit="event.preventDefault();">
+                    <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <input type="text" id="name" placeholder="Name / Callsign" required>
                         </div>
@@ -282,14 +282,93 @@
                         <div class="form-group">
                             <textarea id="message" rows="4" placeholder="Briefing / Requirements" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">
-                            <span>Initialize Secure Channel</span>
-                            <i class='bx bx-paper-plane'></i>
+
+                        <!-- Status message shown after submission -->
+                        <div id="formStatus" class="form-status" style="display:none;"></div>
+
+                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                            <span id="btnText">Initialize Secure Channel</span>
+                            <i class='bx bx-paper-plane' id="btnIcon"></i>
                         </button>
                     </form>
                 </div>
             </div>
         </section>
+
+        <script>
+            document.getElementById("contactForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const message = document.getElementById("message").value.trim();
+                const btn = document.getElementById("submitBtn");
+                const btnText = document.getElementById("btnText");
+                const btnIcon = document.getElementById("btnIcon");
+                const status = document.getElementById("formStatus");
+
+                // --- Loading state ---
+                btn.disabled = true;
+                btnText.textContent = "Transmitting...";
+                btnIcon.className = "bx bx-loader-alt bx-spin";
+                status.style.display = "none";
+
+                try {
+                    const response = await fetch("/api/contact", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name, email, message }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // --- Success state ---
+                        status.textContent = "✔ Secure channel initialized. We'll be in touch.";
+                        status.className = "form-status success";
+                        status.style.display = "block";
+                        document.getElementById("contactForm").reset();
+                    } else {
+                        // --- API error (validation etc.) ---
+                        status.textContent = `✖ ${data.error || "Transmission failed. Retry."}`;
+                        status.className = "form-status error";
+                        status.style.display = "block";
+                    }
+
+                } catch (err) {
+                    // --- Network / unexpected error ---
+                    status.textContent = "✖ Connection lost. Check your network and retry.";
+                    status.className = "form-status error";
+                    status.style.display = "block";
+                } finally {
+                    // --- Restore button ---
+                    btn.disabled = false;
+                    btnText.textContent = "Initialize Secure Channel";
+                    btnIcon.className = "bx bx-paper-plane";
+                }
+            });
+        </script>
+
+        <style>
+            .form-status {
+                padding: 10px 14px;
+                border-radius: 6px;
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .form-status.success {
+                background: rgba(0, 255, 150, 0.08);
+                border: 1px solid rgba(0, 255, 150, 0.35);
+                color: #00ff96;
+            }
+
+            .form-status.error {
+                background: rgba(255, 60, 60, 0.08);
+                border: 1px solid rgba(255, 60, 60, 0.35);
+                color: #ff4d4d;
+            }
+        </style>
     </main>
 
     <footer class="footer">
@@ -299,14 +378,16 @@
                     <span class="glitch-text" data-text="trce">trce</span><span class="neon-text">labs</span>
                 </div>
                 <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Security Disclosure</a>
+                    <a href="#" id="openPrivacy">Privacy Policy</a>
+                    <a href="#" id="openTerms">Terms of Service</a>
+                    <a href="#" id="openSecurity">Refund & Cancellation Policy</a>
                 </div>
                 <div class="social-links">
                     <a href="#"><i class='bx bxl-github'></i></a>
                     <a href="#"><i class='bx bxl-twitter'></i></a>
-                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.linkedin.com/company/trcelabs" target="_blank" rel="noopener noreferrer">
+                        <i class='bx bxl-linkedin'></i>
+                    </a>
                 </div>
             </div>
             <div class="copyright">
@@ -314,44 +395,519 @@
             </div>
         </div>
     </footer>
+    <script>
+        const siteTitle = document.title;
+
+        // ✅ Only reset to '/' if coming from another route like /dashboard
+        const parentPath = window.parent.location.pathname;
+        if (parentPath !== '/') {
+            window.parent.history.replaceState(null, '', '/');
+        }
+
+        // ✅ Always force parent title on load
+        window.parent.document.title = siteTitle;
+
+        // Sync hash links to parent URL
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', () => {
+                const hash = link.getAttribute('href');
+                window.parent.history.pushState(null, '', hash);
+                // ✅ Re-apply title on every hash change
+                window.parent.document.title = siteTitle;
+            });
+        });
+
+        // Force non-hash links to navigate the parent window
+        document.querySelectorAll('a[href^="/"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = link.getAttribute('href');
+                window.parent.location.href = href;
+            });
+        });
+
+        // ✅ Listen for any popstate (back/forward browser buttons) and re-apply title
+        window.parent.addEventListener('popstate', () => {
+            window.parent.document.title = siteTitle;
+        });
+    </script>
+
+    <div id="privacyModal" style="
+    display:none;
+    position:fixed;
+    z-index:9999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.85);
+    overflow:auto;
+">
+
+        <div style="
+        background-color:#111;
+        color:#fff;
+        margin:5% auto;
+        padding:30px;
+        border-radius:12px;
+        width:90%;
+        max-width:800px;
+        box-shadow:0 0 25px rgba(0,0,0,0.6);
+        font-family: Arial, sans-serif;
+        line-height:1.8;
+    ">
+
+            <!-- Close Button -->
+            <button onclick="closeModal()" style="
+            background:#222;
+            color:#fff;
+            border:none;
+            padding:8px 14px;
+            border-radius:6px;
+            cursor:pointer;
+            float:right;
+            margin-bottom:10px;
+        " onmouseover="this.style.background='#444'" onmouseout="this.style.background='#222'">
+                ✕ Close
+            </button>
+
+            <h1 style="margin-bottom:20px;">Privacy Policy</h1>
+
+            <h2 style="margin-top:25px;">Introduction</h2>
+            <p style="margin:10px 0;">
+                TRCELabs (a division of Remote CTO) is committed to protecting the privacy
+                and security of personal and organizational data.
+            </p>
+            <p style="margin:10px 0;">
+                This policy explains how we <strong>collect, use, process, and protect data</strong>
+                in alignment with applicable laws including the
+                <strong>Digital Personal Data Protection Act (DPDPA), 2023</strong>.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>1. Data We Collect</h2>
+            <p style="margin:10px 0;">We may collect:</p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Personal information (name, email, contact details)</li>
+                <li>Organizational data (systems, policies, configurations)</li>
+                <li>Assessment inputs and responses</li>
+                <li>Technical and security-related information</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>2. Purpose of Data Use</h2>
+            <p style="margin:10px 0;">We use data strictly for:</p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Delivering cybersecurity services</li>
+                <li>Conducting assessments and audits</li>
+                <li>Providing recommendations and reports</li>
+                <li>Improving service quality</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>3. Data Protection Measures</h2>
+            <p style="margin:10px 0;">
+                We implement <strong>reasonable technical and organizational safeguards</strong>, including:
+            </p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Restricted access controls</li>
+                <li>Secure storage practices</li>
+                <li>Confidential handling protocols</li>
+            </ul>
+
+            <blockquote style="
+            background:#1a1a1a;
+            border-left:4px solid #555;
+            padding:12px;
+            margin:15px 0;
+            color:#ccc;
+        ">
+                No system can be guaranteed to be 100% secure.
+            </blockquote>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>4. Data Sharing</h2>
+            <p style="margin:10px 0;">We do <strong>not sell or rent data</strong>.</p>
+            <p style="margin:10px 0;">Data may be shared only:</p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>With authorized internal personnel</li>
+                <li>With third-party service providers (if required for delivery)</li>
+                <li>When required by law or regulatory authority</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>5. Data Retention</h2>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Data is retained only for as long as necessary</li>
+                <li>Or as required by legal/regulatory obligations</li>
+                <li>Secure deletion practices are followed post-retention</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>6. Client Responsibility</h2>
+            <p style="margin:10px 0;">Clients are responsible for:</p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Ensuring lawful data sharing with TRCELabs</li>
+                <li>Obtaining necessary consents</li>
+                <li>Compliance with applicable data laws</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>7. Rights of Individuals</h2>
+            <p style="margin:10px 0;">Where applicable, individuals may:</p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Request access to their data</li>
+                <li>Request correction or deletion</li>
+            </ul>
+            <p style="color:#4da6ff; margin:10px 0;">📩 dpdpa@trcelabs.com</p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>8. Limitation</h2>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Security failures outside its control</li>
+                <li>Breaches in client systems</li>
+                <li>Third-party service failures</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>9. Updates</h2>
+            <p style="margin:10px 0;">We may update this policy from time to time.</p>
+
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("privacyModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("privacyModal").style.display = "none";
+        }
+
+        // Optional: close when clicking outside
+        window.onclick = function (event) {
+            let modal = document.getElementById("privacyModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <div id="termsModal" style="
+    display:none;
+    position:fixed;
+    z-index:9999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.85);
+    overflow:auto;
+">
+
+        <div style="
+        background-color:#111;
+        color:#fff;
+        margin:5% auto;
+        padding:30px;
+        border-radius:12px;
+        width:90%;
+        max-width:800px;
+        box-shadow:0 0 25px rgba(0,0,0,0.6);
+        font-family: Arial, sans-serif;
+        line-height:1.8;
+    ">
+
+            <!-- Close Button -->
+            <button onclick="closeTerms()" style="
+            background:#222;
+            color:#fff;
+            border:none;
+            padding:8px 14px;
+            border-radius:6px;
+            cursor:pointer;
+            float:right;
+            margin-bottom:10px;
+        " onmouseover="this.style.background='#444'" onmouseout="this.style.background='#222'">
+                ✕ Close
+            </button>
+
+            <h1 style="margin-bottom:20px;">Terms Of Service</h1>
+
+            <p style="margin:10px 0;">
+                <strong>TRCELabs is a division of Remote CTO</strong> (GST – 24APJPS6706B1Z0)
+            </p>
+
+            <p style="margin:10px 0;">
+                <strong>BY VISITING OR USING OUR WEBSITE, YOU AGREE TO THESE TERMS.</strong>
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>1. Introduction</h2>
+            <p style="margin:10px 0;">
+                These Terms govern your use of TRCELabs services.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>2. Scope of Services</h2>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Cybersecurity assessments and audits</li>
+                <li>DPDPA compliance services</li>
+                <li>Security implementation</li>
+                <li>Digital forensics</li>
+                <li>Consulting services</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>3. Nature of Services</h2>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Services are provided on a best-effort basis</li>
+                <li>Security reduces risk but does not eliminate it</li>
+                <li>Findings depend on available evidence</li>
+                <li>Reports are indicative and context-based</li>
+            </ul>
+
+            <blockquote style="
+            background:#1a1a1a;
+            border-left:4px solid #555;
+            padding:12px;
+            margin:15px 0;
+            color:#ccc;
+        ">
+                No guarantee of complete security or compliance is provided.
+            </blockquote>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>4. Client Responsibility</h2>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Client is fully responsible for data protection</li>
+                <li>Implementation of recommendations is client’s duty</li>
+                <li>Accuracy of provided data is client responsibility</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>5. Data Handling & Confidentiality</h2>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Data is treated as confidential</li>
+                <li>Used only for service delivery</li>
+                <li>Reasonable safeguards applied</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>6. No Warranty</h2>
+            <p style="margin:10px 0;">
+                All services are provided <strong>"as is"</strong> without any warranties.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>7. Limitation of Liability</h2>
+            <p style="margin:10px 0;">
+                TRCELabs is not liable for any damages including:
+            </p>
+            <ul style="margin:10px 0 15px 20px;">
+                <li>Data breaches</li>
+                <li>Loss of revenue</li>
+                <li>Compliance penalties</li>
+            </ul>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>8. Risk Acknowledgement</h2>
+            <p style="margin:10px 0;">
+                Cybersecurity does not eliminate risk. All risks remain with the client.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>9. Liability Cap</h2>
+            <p style="margin:10px 0;">
+                Liability is limited to fees paid for the service.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>10. Indemnity</h2>
+            <p style="margin:10px 0;">
+                Client agrees to indemnify TRCELabs from any claims or damages.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>11. Third-Party Dependencies</h2>
+            <p style="margin:10px 0;">
+                Not responsible for third-party tools or services.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>12. Intellectual Property</h2>
+            <p style="margin:10px 0;">
+                All frameworks and reports remain property of TRCELabs.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>13. Termination</h2>
+            <p style="margin:10px 0;">
+                Services may be terminated at our discretion.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>14. Governing Law</h2>
+            <p style="margin:10px 0;">
+                Governed by laws of India. Jurisdiction: Ahmedabad.
+            </p>
+
+            <hr style="border:1px solid #333; margin:25px 0;">
+
+            <h2>15. Updates</h2>
+            <p style="margin:10px 0;">
+                Terms may be updated anytime.
+            </p>
+
+        </div>
+    </div>
+    <script>
+        function openTerms() {
+            document.getElementById("termsModal").style.display = "block";
+        }
+
+        function closeTerms() {
+            document.getElementById("termsModal").style.display = "none";
+        }
+    </script>
+
+    <div id="securityModal" style="
+    display:none;
+    position:fixed;
+    z-index:9999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.85);
+    overflow:auto;
+">
+    <div style="
+        background-color:#111;
+        color:#fff;
+        margin:5% auto;
+        padding:30px;
+        border-radius:12px;
+        width:90%;
+        max-width:800px;
+        box-shadow:0 0 25px rgba(0,0,0,0.6);
+        font-family: Arial, sans-serif;
+        line-height:1.8;
+    ">
+        <button onclick="closeSecurityModal()" style="
+            background:#222;
+            color:#fff;
+            border:none;
+            padding:8px 14px;
+            border-radius:6px;
+            cursor:pointer;
+            float:right;
+            margin-bottom:10px;
+        " onmouseover="this.style.background='#444'" onmouseout="this.style.background='#222'">
+            ✕ Close
+        </button>
+
+        <h1 style="margin-bottom:20px;">Refund & Cancellation Policy</h1>
+
+        <h2>Refund Policy</h2>
+        <p style="margin:10px 0;">
+            At <strong>TRCELabs (a division of Remote CTO)</strong>, all services are delivered as
+            <strong>specialized, time-bound, and expertise-driven engagements</strong>.
+        </p>
+        <p style="margin:10px 0;">Accordingly:</p>
+        <ul style="margin:10px 0 15px 20px;">
+            <li><strong>All fees paid to TRCELabs are non-refundable in most cases</strong></li>
+            <li>This includes:
+                <ul style="margin:8px 0 8px 20px;">
+                    <li>Assessments (DPDPA, security audits, etc.)</li>
+                    <li>Consulting and advisory services</li>
+                    <li>Implementation and remediation services</li>
+                    <li>Digital forensics engagements</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr style="border:1px solid #333; margin:25px 0;">
+
+        <h2>Exceptions (If Any)</h2>
+        <p style="margin:10px 0;">
+            Refunds may be considered <strong>only at the sole discretion of TRCELabs</strong>, in rare cases such as:
+        </p>
+        <ul style="margin:10px 0 15px 20px;">
+            <li>Duplicate payment</li>
+            <li>Non-initiation of service due to internal reasons from TRCELabs</li>
+            <li>Mutually agreed cancellation before work commencement</li>
+        </ul>
+        <p style="margin:10px 0;">No refunds will be provided once:</p>
+        <ul style="margin:10px 0 15px 20px;">
+            <li>The engagement has started</li>
+            <li>Resources have been allocated</li>
+            <li>Deliverables have been partially or fully shared</li>
+        </ul>
+
+        <hr style="border:1px solid #333; margin:25px 0;">
+
+        <h2>Cancellation Policy</h2>
+        <p style="margin:10px 0;">Clients may request cancellation by written notice. However:</p>
+        <ul style="margin:10px 0 15px 20px;">
+            <li><strong>No refunds will be applicable post engagement initiation</strong></li>
+            <li>Any work completed till the date of cancellation will be chargeable</li>
+        </ul>
+        <p style="margin:10px 0;">TRCELabs reserves the right to cancel or suspend services in case of:</p>
+        <ul style="margin:10px 0 15px 20px;">
+            <li>Non-payment</li>
+            <li>Misuse of services</li>
+            <li>Breach of agreement</li>
+        </ul>
+
+        <hr style="border:1px solid #333; margin:25px 0;">
+
+        <h2>Important Note</h2>
+        <p style="margin:10px 0;">By engaging TRCELabs, the client acknowledges that:</p>
+        <ul style="margin:10px 0 15px 20px;">
+            <li>Services are <strong>knowledge-based and non-reversible in nature</strong></li>
+            <li>Costs include <strong>expert time, analysis, and intellectual effort</strong>, which cannot be refunded once utilized</li>
+        </ul>
+
+    </div>
+</div>
+
 <script>
-  const siteTitle = document.title;
-
-  // ✅ Only reset to '/' if coming from another route like /dashboard
-  const parentPath = window.parent.location.pathname;
-  if (parentPath !== '/') {
-    window.parent.history.replaceState(null, '', '/');
-  }
-  
-  // ✅ Always force parent title on load
-  window.parent.document.title = siteTitle;
-
-  // Sync hash links to parent URL
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', () => {
-      const hash = link.getAttribute('href');
-      window.parent.history.pushState(null, '', hash);
-      // ✅ Re-apply title on every hash change
-      window.parent.document.title = siteTitle;
-    });
-  });
-
-  // Force non-hash links to navigate the parent window
-  document.querySelectorAll('a[href^="/"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      window.parent.location.href = href;
-    });
-  });
-
-  // ✅ Listen for any popstate (back/forward browser buttons) and re-apply title
-  window.parent.addEventListener('popstate', () => {
-    window.parent.document.title = siteTitle;
-  });
+    function openSecurityModal() {
+        document.getElementById("securityModal").style.display = "block";
+    }
+    function closeSecurityModal() {
+        document.getElementById("securityModal").style.display = "none";
+    }
 </script>
 
     <script src="script.js"></script>
+
+
 </body>
 
 </html>
