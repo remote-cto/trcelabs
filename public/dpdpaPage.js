@@ -174,27 +174,44 @@ async function initRazorpay() {
     description: `${plan} — DPDPA Assessment`,
     order_id: orderId,
     handler: async function (response) {
-      const verify = await fetch("/api/payment/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-          plan,
-        }),
-      });
+      try {
+        const verify = await fetch("/api/payment/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            plan,
+          }),
+        });
 
-      if (verify.ok) {
-        document.getElementById("purchaseBackdrop").style.display = "none";
-        showSuccessModal(plan, `₹${amount.toLocaleString("en-IN")}`);
-        // Auto-redirect after showing success for 3 seconds
-        setTimeout(() => {
-          window.location.href = "/dashboard";
-        }, 3000);
-      } else {
-        showToast("Payment verification failed. Contact support.", "error");
+        // Log the raw response for debugging
+        const verifyData = await verify.json();
+        console.log("[VERIFY RESPONSE]", verify.status, verifyData);
+
+        if (verify.ok) {
+          document.getElementById("purchaseBackdrop").style.display = "none";
+          showSuccessModal(plan, `₹${amount.toLocaleString("en-IN")}`);
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 3000);
+        } else {
+          // Show the actual error from server
+          const errMsg =
+            verifyData?.error ||
+            verifyData?.message ||
+            `Verification failed (${verify.status})`;
+          console.error("[VERIFY FAILED]", errMsg);
+          showToast(`Payment verification failed: ${errMsg}`, "error");
+        }
+      } catch (err) {
+        console.error("[VERIFY ERROR]", err);
+        showToast(
+          "Network error during verification. Contact support.",
+          "error",
+        );
       }
     },
     prefill: {
