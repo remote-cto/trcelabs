@@ -9,8 +9,6 @@ function showView(id) {
   window.scrollTo(0, 0);
 }
 
-
-
 /* ── TABS ── */
 function switchTab(tab) {
   document
@@ -169,7 +167,7 @@ async function initRazorpay() {
   const { orderId, currency } = await res.json();
 
   const options = {
-    key: 'rzp_live_dMqVP3m2NXuBvG',
+    key: "rzp_live_dMqVP3m2NXuBvG",
     amount: amount * 100,
     currency,
     name: "trcelabs",
@@ -187,11 +185,14 @@ async function initRazorpay() {
           plan,
         }),
       });
-      console.log(key)
 
       if (verify.ok) {
         document.getElementById("purchaseBackdrop").style.display = "none";
         showSuccessModal(plan, `₹${amount.toLocaleString("en-IN")}`);
+        // Auto-redirect after showing success for 3 seconds
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 3000);
       } else {
         showToast("Payment verification failed. Contact support.", "error");
       }
