@@ -38,27 +38,34 @@
 
     <!-- ══════════════ NAV ══════════════ -->
 
-    <header class="navbar glass-header" id="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <span style="
-          color: #ffffff;
-          
-          letter-spacing: 1px;
-        ">
-                    trce
-                </span>
+  <header class="navbar glass-header" id="navbar">
+  <div class="nav-container" style="display:flex; align-items:center; gap:15px;">
 
-                <span style="
-          color: #00f0ff;
-          
-        ">
-                    labs
-                </span> </a>
+    <!-- Back Button -->
+   
 
-        </div>
-    </header>
+    <!-- Logo -->
+    <a href="/" class="logo" style="font-size: 1.75rem;
+  font-weight: 700;">
+      <span style="color: #ffffff; letter-spacing: 1px;">
+        trce
+      </span>
+      <span style="color: #00f0ff;">
+        labs
+      </span>
+    </a>
+     <button onclick="goBack()" style="
+      background: transparent;
+      border: none;
+      color: #00f0ff;
+      font-size: 18px;
+      cursor: pointer;
+    ">
+      ← Back
+    </button>
 
+  </div>
+</header>
 
     <!-- ══════════════════════════════════════
      VIEW 1: LANDING + LOGIN

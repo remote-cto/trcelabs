@@ -436,3 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
       navbar.style.padding = '24px 0'
     }
   })
+
+  function goBack() {
+    window.history.back();
+  }
