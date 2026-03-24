@@ -417,3 +417,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar')
+
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(5, 5, 8, 0.8)'
+      navbar.style.backdropFilter = 'blur(16px)'
+      navbar.style.webkitBackdropFilter = 'blur(16px)'
+      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)'
+      navbar.style.padding = '16px 0'
+    } else {
+      navbar.style.background = 'transparent'
+      navbar.style.backdropFilter = 'none'
+      navbar.style.borderBottom = '1px solid transparent'
+      navbar.style.padding = '24px 0'
+    }
+  })
