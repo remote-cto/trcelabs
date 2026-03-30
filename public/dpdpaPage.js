@@ -340,7 +340,6 @@ async function handleLogin() {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
 
-  // ── Client-side validation ──
   if (!email || !password) {
     showToast("Please enter both email and password.", "error");
     return;
@@ -358,23 +357,30 @@ async function handleLogin() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
-      credentials: "include", // ensures the HttpOnly cookie is stored
+      credentials: "include",
     });
 
     const data = await response.json();
+    // ─────────────────────────────────────────────────────────────
 
     if (response.ok) {
-      // Store user data for the pricing view
+      if (data.isTestUser) {
+        showToast("Login successful! Redirecting…", "success");
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 1200);
+        return;
+      }
+      // ─────────────────────────────────────────────────────────────
+
+      // Normal user flow
       sessionStorage.setItem("user", JSON.stringify(data.user));
-
       showToast("Login successful!", "success");
-
       setTimeout(() => {
         populateUserBar(data.user);
         showView("pricing");
       }, 1500);
     } else {
-      // ── Server-side errors (400 / 401 / 403 / 500) ──
       const errorMap = {
         403: "Account not verified. Please check your email.",
         401: "Invalid email or password.",
@@ -386,7 +392,6 @@ async function handleLogin() {
       setLoading(false);
     }
   } catch (err) {
-    // ── Network / unexpected error ──
     console.error("[LOGIN]", err);
     showToast("Network error. Please try again.", "error");
     setLoading(false);
@@ -418,25 +423,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+window.addEventListener("scroll", () => {
+  const navbar = document.getElementById("navbar");
 
-
-  window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar')
-
-    if (window.scrollY > 50) {
-      navbar.style.background = 'rgba(5, 5, 8, 0.8)'
-      navbar.style.backdropFilter = 'blur(16px)'
-      navbar.style.webkitBackdropFilter = 'blur(16px)'
-      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)'
-      navbar.style.padding = '16px 0'
-    } else {
-      navbar.style.background = 'transparent'
-      navbar.style.backdropFilter = 'none'
-      navbar.style.borderBottom = '1px solid transparent'
-      navbar.style.padding = '24px 0'
-    }
-  })
-
-  function goBack() {
-    window.history.back();
+  if (window.scrollY > 50) {
+    navbar.style.background = "rgba(5, 5, 8, 0.8)";
+    navbar.style.backdropFilter = "blur(16px)";
+    navbar.style.webkitBackdropFilter = "blur(16px)";
+    navbar.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
+    navbar.style.padding = "16px 0";
+  } else {
+    navbar.style.background = "transparent";
+    navbar.style.backdropFilter = "none";
+    navbar.style.borderBottom = "1px solid transparent";
+    navbar.style.padding = "24px 0";
   }
+});
+
+function goBack() {
+  window.history.back();
+}

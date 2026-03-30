@@ -1,5 +1,3 @@
-//app/auth/login/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { SignJWT } from "jose";
@@ -7,6 +5,9 @@ import connectDB from "@/lib/db";
 import User from "@/models/User";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
+
+const TEST_EMAIL = process.env.TEST_USER_EMAIL;
+const TEST_PASSWORD = process.env.TEST_USER_PASSWORD;
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,17 +23,58 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // ── TEST USER BYPASS (plain-text, skips DB + bcrypt) ──────────
+    if (email.toLowerCase() === TEST_EMAIL && password === TEST_PASSWORD) {
+      const token = await new SignJWT({
+        id: "test-user",
+        email: TEST_EMAIL,
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setExpirationTime("7d")
+        .sign(SECRET);
+
+      const res = NextResponse.json(
+        {
+          message: "Authentication successful.",
+          user: {
+            id: "test-user",
+            fullname: "Test User",
+            email: TEST_EMAIL,
+          },
+          isTestUser: true,
+        },
+        { status: 200 }
+      );
+
+      res.cookies.set("session", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      });
+
+      return res;
+    }
+    // ──────────────────────────────────────────────────────────────
+
     // --- Find user ---
     const user = await User.findOne({ email: email.toLowerCase() });
 
     if (!user) {
-      return NextResponse.json({ error: "Invalid credentials." }, { status: 401 });
+      return NextResponse.json(
+        { error: "Invalid credentials." },
+        { status: 401 }
+      );
     }
 
     // --- Check if verified ---
     if (!user.isVerified) {
       return NextResponse.json(
-        { error: "Account not verified. Please complete email verification first." },
+        {
+          error:
+            "Account not verified. Please complete email verification first.",
+        },
         { status: 403 }
       );
     }
@@ -40,7 +82,10 @@ export async function POST(req: NextRequest) {
     // --- Compare password ---
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return NextResponse.json({ error: "Invalid credentials." }, { status: 401 });
+      return NextResponse.json(
+        { error: "Invalid credentials." },
+        { status: 401 }
+      );
     }
 
     // --- Create JWT ---
@@ -61,6 +106,7 @@ export async function POST(req: NextRequest) {
           fullname: user.fullname,
           email: user.email,
         },
+        isTestUser: false,
       },
       { status: 200 }
     );
@@ -75,9 +121,11 @@ export async function POST(req: NextRequest) {
     });
 
     return res;
-
   } catch (error) {
     console.error("[LOGIN ERROR]", error);
-    return NextResponse.json({ error: "Internal server error." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error." },
+      { status: 500 }
+    );
   }
 }
