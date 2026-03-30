@@ -167,7 +167,7 @@ async function initRazorpay() {
   const { orderId, currency } = await res.json();
 
   const options = {
-    key: "rzp_live_dMqVP3m2NXuBvG",
+    key: "rzp_live_SXQNNs4va5ojYK",
     amount: amount * 100,
     currency,
     name: "trcelabs",
