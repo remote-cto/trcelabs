@@ -156,6 +156,8 @@ async function handlePurchase(plan, price) {
 async function initRazorpay() {
   const plan = document.getElementById("purchaseBackdrop").dataset.plan;
   const amount = PLAN_AMOUNTS[plan];
+  const selectedMethod =
+  document.getElementById("purchaseBackdrop").dataset.method;
 
   const res = await fetch("/api/payment/create-order", {
     method: "POST",
@@ -217,7 +219,22 @@ async function initRazorpay() {
     prefill: {
       email: document.getElementById("userEmail")?.textContent || "",
     },
+
     theme: { color: "#00E5FF" },
+
+    modal: {
+      ondismiss: function () {
+        showToast("Payment popup closed.", "error");
+      },
+    },
+
+    // ✅ THIS PART IS IMPORTANT
+    method: {
+    upi: selectedMethod === "upi" || !selectedMethod,
+    // card: selectedMethod === "card" || !selectedMethod,
+    // netbanking: selectedMethod === "net banking" || !selectedMethod,
+    // emi: selectedMethod === "emi" || !selectedMethod,
+  }
   };
 
   const rzp = new Razorpay(options);
@@ -232,6 +249,10 @@ function closePurchase(e) {
     document.getElementById("purchaseBackdrop").style.display = "none";
 }
 function selPayMethod(el) {
+  const method = el.textContent.trim().toLowerCase();
+
+  document.getElementById("purchaseBackdrop").dataset.method = method;
+
   el.closest("div")
     .querySelectorAll("button")
     .forEach((b) => {
@@ -239,6 +260,7 @@ function selPayMethod(el) {
       b.style.background = "none";
       b.style.color = "var(--text-2)";
     });
+
   el.style.borderColor = "var(--cyan)";
   el.style.background = "rgba(0,229,255,0.08)";
   el.style.color = "var(--cyan)";
