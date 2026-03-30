@@ -138,8 +138,8 @@ async function handleVerifyOTP() {
 
 /* ── PURCHASE MODAL ── */
 const PLAN_AMOUNTS = {
-  "Self Assessment": 5,
-  "Guided Assessment": 10,
+  "Self Assessment": 25000,
+  "Guided Assessment": 30000,
   "Expert Assessment": 50000,
 };
 
